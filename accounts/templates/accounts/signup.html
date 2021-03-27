@@ -1,0 +1,30 @@
+{% extends "store/blog_base.html" %}
+
+{% block content %}
+{% load widget_tweaks %}
+{% block header %}{% include 'store/header.html' %}{% endblock header %}
+
+<hr>
+<h2 class="subtitle"> Don't have an Account? Signup Here</h2>
+
+
+<div class="row">
+	<div class="col-md-6 border-left">
+		<div class="card card-body">
+			<form action="{% url 'accounts:signup' %}" method="POST" >
+            	{% csrf_token %}
+				{% for field in form %}
+					{{field.label}}
+					{{field|add_class:'form-control border-bottom'}}
+				
+				{% endfor %}
+				<hr>
+				<input type="submit" value = "Signup" class="btn btn-outline-warning">
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}

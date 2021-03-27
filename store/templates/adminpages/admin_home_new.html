@@ -1,0 +1,62 @@
+{% extends 'adminpages/admin_base.html' %}
+
+{% block content %}
+<hr>
+
+<hr>
+
+<hr>
+{% block info %} {% include 'adminpages/top_info.html'%}{% endblock info%}
+
+ <a class="btn btn-outline-success" href="{% url 'store'%}">&#x2190; Back to Store</a> 
+<hr>
+
+<div class='row'>
+
+	<div class="col-md-5">
+		<h5>PAGE VIEW ANALYTICS: #</h5>
+		<div class="card card-body">
+		<!--	<a class="btn btn-dark  btn-sm btn-block" href="">Create Customer</a> -->
+			{% block chart %} {% include 'adminpages/chart.html'%} {% endblock chart%}
+		</div>
+	</div>
+
+	<div class="col-md-7">
+    
+		<h5>NEWSLETTER SIGNEES </h5> 
+		<a class="btn btn-sm btn-dark" href="{% url 'export'%}">Export to  Spreadsheet</a>
+
+		
+		<div class="card card-body">
+		<!-- 	<a class="btn btn-secondary  btn-sm btn-block" href="#">Create Order</a> -->
+			<table class="table table-sm">
+				<tr class = "bg-dark text-white">
+					<!--<th>Products</th>-->
+					<th> Customer No.</th>
+					<th> Name</th>
+					<th>Email</th>
+					<th> Date Joined</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+				{% for customer in newsletter %}
+					<tr>
+					{% block order %}
+						<td>{{forloop.counter}}</td>
+						<td>{{customer.name}}</td>
+						<td>{{customer.email}}</td>
+						<td>{{customer.date}}</td>
+					   <!-- <td>{{order.order.customer}}</td>-->
+
+					{% endblock order %}
+						<td><a class="btn btn-sm btn-warning" href="#">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="#">Cancel</a></td>
+
+					</tr>
+
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock content%}

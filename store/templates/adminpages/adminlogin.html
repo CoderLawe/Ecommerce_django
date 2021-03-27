@@ -1,0 +1,30 @@
+{% extends 'store/main.html'%}
+
+{% block content %}
+<style>
+    .errorlist {
+        color: red;
+    }
+</style>
+
+<hr>
+
+<hr>
+<div class="container">
+    <div class="row bg-secondary">
+        <div class="col-md-6 mx-auto">
+            <h3>Admin Login Form</h3>
+            <hr>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn btn-primary">Login as an Admin</button>
+                {% if error %}
+                <li style="color: red;">{{error}}</li>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock%}

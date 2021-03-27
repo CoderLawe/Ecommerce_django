@@ -1,0 +1,40 @@
+{% extends 'adminpages/admin_base.html' %}
+
+{% block content %}
+<hr>
+
+<hr>
+
+
+<table class="table">
+
+    <thead class="top-colour">
+        <tr>
+            <th>Total</th>
+            <th>Customer</th>
+            <th>Date Ordered</th>
+            <th>Status </th>
+            <th>Complete</th>
+            <th>Update</th>
+
+        </tr>
+    </thead>
+
+    {% for order in orders %}
+                    <tr>
+
+                        <td>{{forloop.counter}}</td>
+                        <td>{{order.customer}}</td>
+                        <td>{{order.date_ordered}}</td>
+                        <td>{{order.status}}</td>
+                        <td>{{order.complete}}</td>
+                        <td><a class="btn btn-sm btn-dark" href="{% url 'update_order' order.id %}">Update</a></td>
+
+
+
+                    </tr>
+    {% endfor %}
+
+</table>
+<a class="btn btn-sm btn-dark" href="{% url 'export' %}">Export to csv</a></td>
+{% endblock content %}

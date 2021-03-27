@@ -1,0 +1,23 @@
+{% extends 'adminpages/admin_base.html' %}
+
+{% block content %}
+
+<hr>
+
+<hr>
+
+<br>
+            <p><span class="font-weight-bold">Order ID: </span> </p>
+            <p><span class="font-weight-bold">Order Complete:  {{order.complete}} </span> </p>
+            <p><span class="font-weight-bold">Order On: </span> {{order.date_ordered}}({{order.date_ordered|timesince}} ago)</p>
+            <p><span class="font-weight-bold">Customer Information: </span> By {{order.customer}}, {{ord_obj.email}}</p>
+            <p><span class="font-weight-bold">Shipping Address: </span> {{order.shipping_address}} ({{order.email}})</p>
+            <p><span class="font-weight-bold"> Product(s): </span> {{order.product}} {{order.email}}</p>
+
+
+
+           <a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update Order</a>
+            <a class="btn btn-sm btn-info" href="{% url 'delete_order' order.id %}">Delete</a>
+
+
+{% endblock %}

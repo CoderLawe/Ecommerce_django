@@ -1,0 +1,118 @@
+{% extends 'store/main.html'%}
+{% load static %}
+{% block content %}
+
+<br>
+<!--
+<div class="my-5 text-center container">
+
+   <div class="row mb-2">
+      <div class="col text-center">
+         <p class="lead">New Products On Sale This Month</p>
+      </div>
+      -->
+   <style>
+.parallax {
+  /* The image used */
+  background-image: url("img_parallax.jpg");
+
+  /* Set a specific height */
+  height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+   </div>
+
+   <div class="row d-flex align-items-center">
+      <div class="col-1 d-flex align-items-center justify-content-center">
+         <a href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <div class="carousel-nav-icon">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z"/>
+               </svg>
+            </div>
+         </a>
+      </div>
+      <div class="col-10">
+         <!--Start carousel-->
+         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+            <div class="carousel-inner parallax " style="opacity: 0.9; background-color: rgb(50, 135, 168); background-image: url('/static/images/background5.jpg');">
+               <div class="carousel-item active">
+                  <div class="row">
+                     <div style="background-color: black" class="col-12 col-md d-flex align-items-center justify-content-center">
+                         <img src="{% static 'images/watch.jpeg'%}">
+                     </div>
+                     <div  class="col-12 col-md d-flex align-items-center justify-content-center" style="background-color:black">
+                         <img src="{% static 'images/watch.jpg'%}">
+                     </div>
+                     <div style="background-color:black;" class="col-12 col-md d-flex align-items-center justify-content-center">
+                        <h3 class="text-white">On Offer This Monthh!</h3>
+                     </div>
+                  </div>
+               </div>
+               <div class="carousel-item">
+                  <div class="row">
+                     <div style="background-image:url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/46992/flexfun01.jpg');" class="col-12 col-md d-flex align-items-center justify-content-center">
+                     </div>
+                     <div style="background-image:url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/46992/flexfun03.jpg');" class="col-12 col-md d-flex align-items-center justify-content-center">
+                     </div>
+                     <div style="background-image:url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/46992/flexfun06.jpg');" class="col-12 col-md d-flex align-items-center justify-content-center" class="col-12 col-md d-flex align-items-center justify-content-center">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--End carousel-->
+      </div>
+      <div class="col-1 d-flex align-items-center justify-content-center"><a  href="#carouselExampleIndicators" data-slide="next">
+         <div class="carousel-nav-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink">
+               <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"/>
+            </svg>
+         </div>
+         </a>
+      </div>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4 ">
+        <a href="{% url 'detail' slug=product.slug%}"> <img class="thumbnail" src="{{product.image.url}}"></a>
+        <div class="box-element product">
+            <h6><strong>{{product.name}}</strong></h6>
+            <hr>
+
+             <button data-product ={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>
+
+            <a class="btn btn-outline-success " href="{% url 'detail' slug=product.slug%}">Detailsss</a>
+            <h4 style="display: inline:block; float: right;">
+                ${{product.price| floatformat:2}}</h4>
+        </div>
+
+        <br>
+
+    </div>
+
+{% endfor %}
+</div>
+
+
+{% endblock content %}
+{% block footer %}{% include 'store/footer.html'%} {% endblock footer%} 

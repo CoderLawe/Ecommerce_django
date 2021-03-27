@@ -1,0 +1,120 @@
+{% extends 'adminpages/admin_base.html' %}
+
+{% block content %}
+
+{% load widget_tweaks %}
+<hr>
+
+<hr>
+
+<!---
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Customer: {{customer.name}}</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Customer</a>
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Contact Information</h5>
+			<hr>
+			<p>Email:  {{customer.email}}</p>
+			<p>Phone:  {{customer.phone}}</p>
+            <p>Shipping Address: {{shipping.city}}</p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Orders</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{total_orders}}</h1>
+		</div>
+	</div>
+</div>
+
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+		    {% for field in filter.form %}
+		    	{{field.label}}
+		    	{{field|add_class:'form-control-sm'}}
+		    {% endfor %}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+		</div>
+	</div>
+	
+</div>
+<br>
+{% block customer %}
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Product</th>
+					<th>Category</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+					<tr>
+
+						<td>{{order.get_cart_item}}</td>
+						<td>{{order.category}}</td>
+						<td>{{order.date_ordered}}</td>
+						<td>{{order.status}}</td>
+						<td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="#">Cancel</a></td>
+					</tr>
+
+                {% endblock customer%}
+			</table>
+		</div>
+	</div>
+</div>
+	
+
+-->
+
+
+
+<div class="cart-row ">
+            <!-- <button id="make-payment" > Make Payment</button> -->
+<table class="table">
+
+    <thead class="top-colour">
+        <tr>
+            <th>Number</th>
+            <th>Name</th>
+            <th>Email Adress</th>
+            <th> Date Joined</th>
+        </tr>
+    </thead>
+
+    {% for customer in customer %}
+<tr>
+                        <td>{{forloop.counter}}</td>
+						<td>{{customer.name}}</td>
+                        <td>{{customer.email}}</td>
+                        <td> N/A</td>
+
+
+                    </tr>
+    {% endfor %}
+
+</table>
+            </div>
+{% endblock content %}

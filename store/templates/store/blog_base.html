@@ -1,0 +1,99 @@
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{% static 'images/favicon.png'%}" type="image/x-icon">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ecom | Sosah</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style_fashi.css' %}" type="text/css">
+   <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+    <script src="https://cdn.tiny.cloud/1/e8wo49ktfq2qmuzjsewshg463qfg6xfjo21kl0qtunfluql3/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+   <script type="text/javascript">
+
+    var user = '{{request.user}}'
+
+    function getToken(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getToken('csrftoken');
+
+function getCookie(name){
+    var cookieArr = document.cookie.split(';');
+
+    for(var i=0; i< cookieArr.length; i++){
+    var cookiePair = cookieArr[i].split("=");
+
+    if(name == cookiePair[0].trim()){
+    return decodeURIComponent(cookiePair[1]);
+    }
+
+    }
+    return null;
+}
+
+var cart = JSON.parse(getCookie('cart'))
+if(cart == undefined){
+     cart = {}
+     console.log('Cart was created')
+     document.cookie = 'cart=' + JSON.stringify(cart)+ ";domain=;path=/"
+}
+console.log('Cart:',cart)
+</script>
+
+</head>
+
+<body>
+
+        {% block content %}
+
+        {% endblock content %}
+        
+    
+
+ <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'js/jquery-ui.min.js'%}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js'%}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js'%}"></script>
+    <script src="{% static 'js/jquery.zoom.min.js'%}"></script>
+    <script src="{% static 'js/jquery.dd.min.js'%}"></script>
+    <script src="{% static 'js/jquery.slicknav.js'%}"></script>
+    <script src="{% static 'js/owl.carousel.min.js'%}"></script>
+    <script src="{% static 'js/main.js'%} "></script>
+        <script type="text/javascript" src="{% static 'js/cart.js'%}"></script>
+
+
+</body>

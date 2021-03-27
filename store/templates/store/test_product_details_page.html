@@ -1,0 +1,78 @@
+{% extends 'store/main.html'%}
+{% load static %}
+{% block content %}
+
+<hr>
+<hr>
+
+<div class="container" id="product-section">
+  <div class="row">
+   <div class="col-md-6">
+
+    <img src='{{products.imageURL}}'>
+    </div>
+    
+   
+   
+
+   <!--Second friggin part-->
+
+   <div class="col-md-6">
+   <div class='row'>
+   <div class='col-md-12'>
+   <h1>{{products.name}}</h1>
+   </div
+
+   <div class="row">
+ <div class="col-md-12">
+  <p class="description">
+   {{products.description}}
+  </p>
+ </div>
+</div><!-- end row -->
+
+<div class="row">
+ <div class="col-md-3">
+  <span class="sr-only">Four out of Five Stars</span>
+  <span class="fas fa-star" aria-hidden="true"></span>
+  <i class="fas fa-star"></i>
+
+  <i class="fas fa-star"></i>
+
+  <span class="fas  fa-star" aria-hidden="true"></span>
+  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+  <span class="label label-success">61</span>
+ </div>
+
+   <div class='row'>
+   <span class='glyphicon glyphicon-star'></span>
+   </div
+
+<div class="row">
+ <div class="col-md-12 bottom-rule">
+  <h2 class="product-price">${{products.price}}</h2>
+ </div>
+</div><!-- end row -->
+
+ <div class="col-md-4">
+    <button data-product ={{products.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>
+
+ </div>
+</div><!-- end row -->
+
+
+   </div>
+   </div>
+  </div><!-- end row -->
+
+
+ </div><!-- end container -->
+
+
+<br>
+
+
+<br>
+
+<br>
+{% endblock %}

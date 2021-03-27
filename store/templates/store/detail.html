@@ -1,0 +1,269 @@
+{% extends 'store/main.html'%}
+{% load static %}
+{% block content %}
+
+<!--
+<hr>
+<h1> Product details for {{products.name}}</h1>
+
+  <img src="{{products.imageURL}}" alt="" class="img-fluid">
+
+<p> Description - {{products.description}}</p>
+
+             <button data-product ={{products.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>
+
+
+
+<h2> Price {{products.price}}</h2>
+-->
+
+<!--Section: Block Content-->
+
+<hr>
+
+
+<hr>
+<!--
+<section class="mb-5">
+
+  <div class="row">
+    <div class="col-md-6 mb-4 mb-md-0">
+
+      <div id="mdb-lightbox-ui"></div>
+
+      <div class="mdb-lightbox">
+
+        <div class="row product-gallery mx-1">
+
+          <div class="col-12 mb-0">
+            <figure class="view overlay rounded z-depth-1 main-img">
+                <img src="{{products.imageURL}}"
+                  class="img-fluid z-depth-1">
+
+            </figure>
+            <figure class="view overlay rounded z-depth-1" style="visibility: hidden;">
+              <a href="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg"
+                data-size="710x823">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg"
+                  class="img-fluid z-depth-1">
+              </a>
+            </figure>
+            <figure class="view overlay rounded z-depth-1" style="visibility: hidden;">
+              <a href="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13a.jpg"
+                data-size="710x823">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13a.jpg"
+                  class="img-fluid z-depth-1">
+              </a>
+            </figure>
+            <figure class="view overlay rounded z-depth-1" style="visibility: hidden;">
+              <a href="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14a.jpg"
+                data-size="710x823">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14a.jpg"
+                  class="img-fluid z-depth-1">
+              </a>
+            </figure>
+          </div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col-3">
+                <div class="view overlay rounded z-depth-1 gallery-item">
+                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg"
+                    class="img-fluid">
+                  <div class="mask rgba-white-slight"></div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="view overlay rounded z-depth-1 gallery-item">
+                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13a.jpg"
+                    class="img-fluid">
+                  <div class="mask rgba-white-slight"></div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="view overlay rounded z-depth-1 gallery-item">
+                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14a.jpg"
+                    class="img-fluid">
+                  <div class="mask rgba-white-slight"></div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="view overlay rounded z-depth-1 gallery-item">
+                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg"
+                    class="img-fluid">
+                  <div class="mask rgba-white-slight"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-6">
+
+      <h5>{{products.name}}</h5>
+
+      <p><span class="mr-1"><strong>$12.99</strong></span></p>
+      <p class="pt-1">{{products.description}}</p>
+      <hr>
+
+      <button data-product ={{products.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>
+
+    </div>
+  </div>
+
+</section>
+-->
+
+<!--Section: Block Content-->
+    <script type="text/javascript">
+
+$(document).ready(function () {
+  // MDB Lightbox Init
+  $(function () {
+    $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+  });
+});
+    </script>
+<section class="mb-5">
+
+  <div class="row">
+    <div class="col-md-6 mb-4 mb-md-0">
+
+      <div id="mdb-lightbox-ui"></div>
+
+      <div class="mdb-lightbox">
+
+        <div class="row product-gallery mx-1">
+
+          <div class="col-12 mb-0">
+            <figure class="view overlay rounded z-depth-1 main-img">
+              
+                <img src={{products.imageURL}}
+                  class="img-fluid z-depth-1">
+            </figure>
+
+            
+           
+            
+          </div>
+
+          
+          
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-6 border border-left">
+
+      <h5>{{products.name}}</h5>
+    <hr>
+      <p class="mb-2 text-muted text-uppercase small">Insert Category here Lawe</p>
+      <hr>
+
+      <p><span class="mr-1"><strong>${{products.price}}</strong></span></p>
+      <hr>
+      <p class="pt-1">{{products.description}}</p>
+
+      <hr>
+              <td>
+
+            <button type="button" data-product ={{products.id}} data-action="add" class="btn btn-light btn-md mr-1 mb-2 add-btn update-cart"><i
+          class="fas fa-shopping-cart pr-2"></i>Add to cart</button>
+
+
+              <!--Options and customisations
+                <div class="mt-1">
+                  <div class="form-check form-check-inline pl-0">
+                    <input type="radio" class="form-check-input" id="small" name="materialExampleRadios"
+                      checked>
+                    <label class="form-check-label small text-uppercase card-link-secondary"
+                      for="small">Small</label>
+                  </div>
+                  <div class="form-check form-check-inline pl-0">
+                    <input type="radio" class="form-check-input" id="medium" name="materialExampleRadios">
+                    <label class="form-check-label small text-uppercase card-link-secondary"
+                      for="medium">Medium</label>
+                  </div>
+                  <div class="form-check form-check-inline pl-0">
+                    <input type="radio" class="form-check-input" id="large" name="materialExampleRadios">
+                    <label class="form-check-label small text-uppercase card-link-secondary"
+                      for="large">Large</label>
+                  </div>
+                </div>
+                -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+     <!-- <button type="button" class="btn btn-primary btn-md mr-1 mb-2">Buy now</button>-->
+      
+
+          
+
+<p></p>
+<!--Nav Tab begining-->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+        
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Features</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Reviews</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  
+  {{products.description}}</div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+<div class='container'>
+
+<div class="row">
+<br>
+
+ <div class="col-md-3">
+  <span class="sr-only">Four out of Five Stars</span>
+  <span class="fas fa-star" aria-hidden="true"></span>
+  <i class="fas fa-star"></i>
+
+  <i class="fas fa-star"></i>
+
+  <span class="fas  fa-star" aria-hidden="true"></span>
+  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+  <span class="label label-success">61</span>
+ </div>
+
+   <div class='row'>
+   <span class='glyphicon glyphicon-star'></span>
+   </div
+
+</div>  
+  
+Reviews</div>
+
+
+</div>
+
+
+<!--Nav tab end-->
+
+
+    </div>
+  </div>
+
+<br>
+</section>
+
+<!--Section: Block Content-->
+
+
+{% endblock content%}

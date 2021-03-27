@@ -1,0 +1,49 @@
+{% extends 'adminpages/admin_base.html' %}
+
+
+<br>
+
+
+<br>
+
+
+<br>
+
+
+<br>
+{% block content %}
+<br>
+<br>
+<br>
+{% block info %} {% include 'adminpages/top_info.html'%}{% endblock info%}
+
+<div class="col-md-7">
+    
+		<h5> ALL DELIVERED ORDERS</h5>
+		
+		<div class="card card-body">
+		<!-- 	<a class="btn btn-secondary  btn-sm btn-block" href="#">Create Order</a> -->
+			<table class="table table-sm">
+				<tr class = "bg-dark text-white">
+					<!--<th>Products</th>-->
+					<th>Date Ordered</th>
+                    <th>Customer</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+				{% for order in done %}
+					<tr>
+						<!--<td>{{order.product}}</td>-->
+						<td>{{order.date_ordered}}</td>
+                        <td>{{order.customer}}</td>
+						<td>{{order.status}}</td>
+						<td><a class="btn btn-sm btn-warning" href="{% url 'update_order' order.pk %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="#">Cancel</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+{% endblock content%}

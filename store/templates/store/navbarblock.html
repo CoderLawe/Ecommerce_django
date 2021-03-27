@@ -1,0 +1,55 @@
+{% load static%}
+
+{% block nav %}
+  <section class="menu menu2 cid-snFWiYGhWx" once="menu" id="menu2-1">
+    
+    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+        <div class="container">
+            <div class="navbar-brand">
+                <span class="navbar-logo">
+                    <a href="{% url 'store'%}">
+                        <img src="{% static 'images/logo.png'%}" alt="Mobirise" style="height: 3rem;">
+                    </a>
+                </span>
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-7" href="{% url 'store'%}">Sosah</a></span>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+            <form class="form-inline my-2 my-lg-0" action="{% url 'search'%}" method="GET">
+            <input name="keyword" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required>
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            
+
+
+
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-white display-4" href="https://mobiri.se">
+                            About us</a></li>
+
+                    <li class="nav-item"><a class="nav-link link text-white display-4" href="https://mobiri.se">
+                            Login</a></li>
+
+                    <li class="nav-item"><a class="nav-link link text-white display-4" href="https://mobiri.se">
+                            Signup</a></li>
+                    <li class="nav-item">    <a href="{% url 'cart' %}">
+                    <img  id="cart-icon" src="{% static 'images/cart.png' %}">
+    	</a>
+    	            <p id="cart-total">{{cartItems}}</p>
+                    <a href="{% url 'cart' %}">
+    		
+                    </li></ul>
+                
+                
+            </div>
+        </div>
+    </nav>
+</section>
+{% endblock nav %}

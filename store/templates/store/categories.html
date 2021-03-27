@@ -1,0 +1,51 @@
+{% extends 'store/blog_base.html' %}
+
+{% block content %}
+{% block header %}{% include 'store/header.html' %}{% endblock header%}
+<br>
+ <div class="product-list">
+<div class="row">
+{% for product in products %}
+    <div class="col-lg-4 col-sm-6">
+        <div class="product-item">
+            <div class="pi-pic">
+                <img src="{{product.image.url}}" alt="">
+                <div class="sale pp-sale">Sale</div>
+                <div class="icon">
+                    <i class="icon_heart_alt"></i>
+                </div>
+                <ul>
+                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                    <li class="quick-view"><a href="{% url 'detail' slug=product.slug %}">+ Quick View</a></li>
+                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                </ul>
+            </div>
+            <div class="pi-text">
+                <div class="catagory-name">Towel</div>
+                <a href="#">
+                    <h5>{{products.name}}</h5>
+                </a>
+                <div class="product-price">
+                    ${{product.price}}
+                    <span>$35.00</span>
+                </div>
+            </div>
+<button data-product ={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>
+
+        </div>
+    </div>
+{% endfor %}
+</div>
+</div>
+<div class="loading-more">
+<i class="icon_loading"></i>
+<a href="#">
+    Loading More
+</a>
+</div>
+</div>
+</div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+{% endblock content%}

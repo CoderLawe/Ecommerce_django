@@ -1,0 +1,40 @@
+{% extends 'adminpages/admin_base.html' %}
+
+{% block content %}
+<hr>
+
+<hr>
+
+
+
+
+<div class="cart-row ">
+            <!-- <button id="make-payment" > Make Payment</button> -->
+<table class="table">
+
+    <thead class="top-colour">
+        <tr>
+            <th>Number</th>
+            <th>Name</th>
+            <th>Products </th>
+            <th> Quantity</th>
+            <th> Date Joined</th>
+        </tr>
+    </thead>
+
+    {% for customer in orderItem %}
+<tr>
+                        <td>{{forloop.counter}}</td>
+						<td><a href="{% url 'cust_details' customer.pk %}">{{customer.order.customer}}</a></td>
+                        <td>{{customer.order.customer.email}}</td>
+                        <td> {{customer.quantity}}</td>
+                        <td>{{customer.shipping}}</td>
+
+
+                    </tr>
+    {% endfor %}
+
+</table>
+            </div>
+
+{% endblock content %}

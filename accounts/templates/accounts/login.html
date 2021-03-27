@@ -1,0 +1,33 @@
+{% extends "store/blog_base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+{% block header %}{% include 'store/header.html' %}{% endblock header %}
+<br>
+
+<div class="row">
+	<div class="col-md-6 border-left">
+		<div class="card card-body">
+			<form action="{% url 'accounts:login' %}" method="POST" >
+            	{% csrf_token %}
+				{% for field in form %}
+					{{field.label}}
+					{{field|add_class:'form-control border-bottom'}}
+				
+				{% endfor %}
+				<hr>
+				<input type="submit" value = "Login" class="btn btn-outline-warning">
+			</form>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+	<div class="card card-body">
+	<p>Don't have an Account? Make One here</p>
+	<hr>
+	<p><a href="{% url 'accounts:signup' %}"> Signup</a></p>
+	</div>
+	</div>
+</div>
+{% endblock content %}
+
+

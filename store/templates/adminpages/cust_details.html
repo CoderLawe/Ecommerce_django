@@ -1,0 +1,92 @@
+{% extends 'adminpages/admin_base.html' %}
+
+{% block content %}
+
+{% load widget_tweaks %}
+<hr>
+
+<hr>
+
+
+<br>
+
+
+
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Customer: {{orderitems.order.customer}}</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Customer</a>
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Contact Information</h5>
+			<hr>
+			<p>Email:  {{orderitems.order.customer.email}}</p>
+			<p>Phone:  {{customer.order}}</p>
+            <p>Shipping Address: {{shipping}}</p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Orders</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{total_orders}}</h1>
+		</div>
+	</div>
+</div>
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+		    {% for field in filter.form %}
+		    	{{field.label}}
+		    	{{field|add_class:'form-control-sm'}}
+		    {% endfor %}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+		</div>
+	</div>
+	
+</div>
+<br>
+
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Product</th>
+					<th>Quantity</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+					<tr>
+						<td>{{orderitems.product}}</td>
+						<td>{{order.get_cart_item}}</td>
+						<td>{{orderitems.date_added}}</td>
+						<td>{{orderitems.order.customer.orders}}</td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'update_order' orderitems.order.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="#">Cancel</a></td>
+					</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
+{% endblock content %}

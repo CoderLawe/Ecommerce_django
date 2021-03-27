@@ -1,0 +1,47 @@
+{% extends 'adminpages/chart_base.html' %}
+
+{% block chart%}
+
+{% block scripts%}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+    {% endblock scripts%}
+
+{% block content %}
+<div class="myChart">
+<canvas id="myChart" width="200" height = "200"></canvas>
+
+
+</div>
+
+   <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: [{% for item in articles %}
+           '{{item.short_title}}',
+            {% endfor %}
+            
+            ],
+            datasets: [{
+                label: 'hits per article',
+
+                backgroundColor: 'rgb(255, 114, 33)',
+                borderColor: 'rgb(0, 0, 0)',
+                data: [{% for item in articles %}{{item.page_views}},{% endfor %}]
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+});
+</script>
+
+{% endblock content %}
+
+{% endblock chart %}

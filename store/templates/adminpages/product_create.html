@@ -1,0 +1,30 @@
+ {% extends 'adminpages/admin_base.html' %}
+
+{% block content%}
+{% load widget_tweaks %}
+
+
+<br>
+
+ <h2>Create An Awesome new Product</h2>
+
+ <br>
+<div class="row">
+	<div class="col-md-6 border-left">
+		<div class="card card-body">
+			<form action="" method="POST" enctype="multipart/form-data">
+            	{% csrf_token %}
+				{% for field in form %}
+					{{field.label}}
+					{{field|add_class:'form-control border-bottom'}}
+				
+				{% endfor %}
+
+				<hr>
+				<input type="submit" value = "create" class="btn btn-info">
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

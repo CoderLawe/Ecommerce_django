@@ -1,0 +1,34 @@
+{% extends 'store/base.html'%}
+{% block content %}
+
+<br>
+<br>
+<br>
+<br>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Search Results for <span class="text-info">"{{request.GET.keyword}}"</span></h3>
+            <hr>
+            {% for result in results %}
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="{% url 'detail' slug=result.slug%}"><img src="{{result.image.url}}" class="img-fluid" alt="">
+                    </a>
+                </div>
+                <div class="col-md-9">
+                    <h4><a href="{% url 'detail' slug=result.slug%}">{{result.name}}</a></h4>
+                   <p>{{result.description}}</p>
+             <button data-product ={{result.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>
+                </div>
+
+            </div>
+
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

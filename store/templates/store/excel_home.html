@@ -1,0 +1,20 @@
+{% extends 'store/base.html'%}
+
+{% block content %}
+   <h3>Excel Example - Read Write Examples</h3>
+        <ul>
+            <li>Write Operation
+                <ul>
+                    <li>
+                        <a href="{% url 'export_excel' %}">Simple Excel Write Operation</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'export_styling_excel' %}">Styling your Excel data with xlwt</a>
+                    </li>
+                    <li>
+                        <a href="#">writing to existng workbook using dnxlwt </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+{% endblock %}

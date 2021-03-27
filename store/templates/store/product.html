@@ -1,0 +1,553 @@
+{% extends 'store/blog_base.html' %}
+{% load static %}
+{% block content %}
+{% load widget_tweaks %}
+{% block header %}{% include 'store/header.html' %}{% endblock header %}
+
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text product-more">
+                        <a href="./home.html"><i class="fa fa-home"></i> Home</a>
+                        <a href="./shop.html">Shop</a>
+                        <span>Detail</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad page-details">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-9" >
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="product-pic-zoom">
+                                <img class="product-big-img" src="{{products.image.url}}" alt="">
+                                <div class="zoom-icon">
+                                    <i class="fa fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <div class="product-thumbs">
+                                <div class="product-thumbs-track ps-slider owl-carousel">
+
+                                    <div class="pt active" data-imgbigurl="{{products.image.url}}"><img
+                                            src="{{products.image.url}}" alt=""></div>
+
+                                    {% for i in products.image_set.all%}
+                                    <div class="pt" data-imgbigurl="{{i.image.url}}"><img
+                                            src="{{i.image.url}}" alt=""></div>
+                                    {% endfor %}
+
+                                    <div class="pt" data-imgbigurl="#"><img
+                                            src="#" alt=""></div>
+                                    <div class="pt" data-imgbigurl="img/product-single/product-3.jpg"><img
+                                            src="img/product-single/product-3.jpg" alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="product-details">
+                                <div class="pd-title">
+                                    <span>oranges</span>
+                                    <h3>{{products.name}}, Stars: {{ products.get_rating |floatformat:1}}</h3>
+                                    <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
+                                </div>
+                                <div class="pd-rating">
+                                {% for rating in rating %}
+                                    <i class="fa fa-star"></i>
+                                {% endfor %}
+                                    <span>({{products.get_rating |floatformat:1}})</span>
+                                </div>
+                                <div class="pd-desc">
+                                    <p>Lorem ipsum dolor sit amet, consectetur ing elit, sed do eiusmod tempor sum dolor
+                                        sit amet, consectetur adipisicing elit, sed do mod tempor</p>
+                                    <h4>$495.00 <span>629.99</span></h4>
+                                </div>
+                                <div class="pd-color">
+                                    <h6>Color</h6>
+                                    <div class="pd-color-choose">
+                                        <div class="cc-item">
+                                            <input type="radio" id="cc-black">
+                                            <label for="cc-black"></label>
+                                        </div>
+                                        <div class="cc-item">
+                                            <input type="radio" id="cc-yellow">
+                                            <label for="cc-yellow" class="cc-yellow"></label>
+                                        </div>
+                                        <div class="cc-item">
+                                            <input type="radio" id="cc-violet">
+                                            <label for="cc-violet" class="cc-violet"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pd-size-choose">
+                                    <div class="sc-item">
+                                        <input type="radio" id="sm-size">
+                                        <label for="sm-size">s</label>
+                                    </div>
+                                    <div class="sc-item">
+                                        <input type="radio" id="md-size">
+                                        <label for="md-size">m</label>
+                                    </div>
+                                    <div class="sc-item">
+                                        <input type="radio" id="lg-size">
+                                        <label for="lg-size">l</label>
+                                    </div>
+                                    <div class="sc-item">
+                                        <input type="radio" id="xl-size">
+                                        <label for="xl-size">xs</label>
+                                    </div>
+                                </div>
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <input type="text " value="1"  data-product={{item.product.id}} data-action="add">
+
+
+                                    </div>
+                                    <button data-product={{products.id}} data-action="add" class="primary-btn pd-cart add-btn update-cart">Add To Cart</button>
+
+                                </div>
+                                <ul class="pd-tags">
+                                    <li><span>CATEGORIES</span>: More Accessories, Wallets & Cases</li>
+                                    <li><span>TAGS</span>: Clothing, T-shirt, Woman</li>
+                                </ul>
+                                <div class="pd-share">
+                                    <div class="p-code">Sku : 00012</div>
+                                    <div class="pd-social">
+                                        <a href="#"><i class="ti-facebook"></i></a>
+                                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                                        <a href="#"><i class="ti-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            
+
+
+                    <div class="product-tab">
+                        <div class="tab-item">
+                            <ul class="nav" role="tablist">
+                                <li>
+                                    <a class="active" data-toggle="tab" href="#tab-1" role="tab">DESCRIPTION</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab-2" role="tab">SPECIFICATIONS</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab-3" role="tab">Customer Reviews (02)</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-item-content">
+                            <div class="tab-content">
+                                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                                    <div class="product-content">
+                                        <div class="row">
+                                            <div class="col-lg-7">
+                                                <h5>Introduction</h5>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                                                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                                    aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
+                                                <h5>Features</h5>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                                                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                                    aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <img src="img/product-single/tab-desc.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                                    <div class="specification-table">
+                                        <table>
+                                            <tr>
+                                                <td class="p-catagory">Customer Rating</td>
+                                                <td>
+                                                    <div class="pd-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <span>(5)</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-catagory">Price</td>
+                                                <td>
+                                                    <div class="p-price">$495.00</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-catagory">Add To Cart</td>
+                                                <td>
+                                                    <div class="cart-add">+ add to cart</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-catagory">Availability</td>
+                                                <td>
+                                                    <div class="p-stock">22 in stock</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-catagory">Weight</td>
+                                                <td>
+                                                    <div class="p-weight">1,3kg</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-catagory">Size</td>
+                                                <td>
+                                                    <div class="p-size">Xxl</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-catagory">Color</td>
+                                                <td><span class="cs-color"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-catagory">Sku</td>
+                                                <td>
+                                                    <div class="p-code">00012</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                    <div class="customer-review-option">
+                                        <h4>2 Comments</h4>
+                                        <div class="comment-option">
+                                        {% for review in products.reviews.all %}
+                                            <div class="co-item">
+                                                <div class="avatar-pic">
+                                                    <img src="img/product-single/avatar-1.png" alt="">
+                                                </div>
+                                                <div class="avatar-text">
+                                                    <div class="at-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </div>
+                                                    <h5>Brandon Kelley <span>{{review.date_added}}</span></h5>
+                                                    <div class="at-reply"> {{review.content}}!</div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                            <div class="co-item">
+                                                <div class="avatar-pic">
+                                                    <img src="img/product-single/avatar-2.png" alt="">
+                                                </div>
+                                                <div class="avatar-text">
+                                                    <div class="at-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </div>
+                                                    <h5>Roy Banks <span>27 Aug 2019</span></h5>
+                                                    <div class="at-reply">Nice !</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="personal-rating">
+                                            <h6>Your Ratind</h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </div>
+                                        </div>
+                                        <div class="leave-comment">
+                                            <h4>Leave A Comment</h4>
+                                            <form action="#" class="comment-form">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <input type="text" placeholder="Name">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" placeholder="Email">
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <textarea placeholder="Messages"></textarea>
+                                                        <button type="submit" class="site-btn">Send message</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 border-left">
+        <p>Subscribe to our Newsletter</p>  
+<div class="row">
+	<div class="card card-body border-right border-top border-left">
+
+	<form action="{% url 'newsletter' %}" method="POST">
+            	{% csrf_token %}
+				{% for field in form %}
+					{{field.label}}
+					{{field|add_class:'form-control'}}
+				
+				{% endfor %}
+				<hr>
+				<input type="submit" class="btn btn-outline-warning">
+			</form>
+			</div>
+
+</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+
+    <!-- Related Products Section End -->
+    <div class="related-products spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Other Products</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            {% for product in product %}
+                <div class="col-lg-3 col-sm-6">
+                    <div class="product-item">
+                        <div class="pi-pic">
+                        <a href="{% url 'detail' slug=product.slug%}">
+                            <img src="{{product.image.url}}" alt="">
+                        </a>
+                            <div class="sale">Sale</div>
+                            <div class="icon">
+                                <i class="icon_heart_alt"></i>
+                            </div>
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">Coat</div>
+                            <a href="#">
+                                <h5>{{product.name}}</h5>
+                            </a>
+                            <div class="product-price">
+                                ${{product.price}}
+                                <span>$35.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            {% endfor %}
+                <hr>
+
+                <h2 class="subtitle">Reviews</h2>
+
+        <div class="reviews-wrapper">
+            {% for review in products.reviews.all %}
+                <div class="notification space-below">
+                    <p>
+                        <strong>Date: </strong>{{ review.date_added|date:"Y-m-d" }},
+                        <strong>Stars: </strong>{{ review.stars }}
+                    </p>
+
+                    {{ review.content }}
+                </div>
+            {% empty %}
+                <div class="notification space-below">
+                    No reviews yet...
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="notification space-below">
+            {% if request.user.is_authenticated %}
+                <form method="post" action=".">
+                    {% csrf_token %}
+
+                    <div class="field">
+                        <label>Stars</label>
+
+                        <div clas="control">
+                            <div class="select">
+                                <select name="stars">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3" selected>3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Content</label>
+
+                        <div class="control">
+                            <textarea class="textarea" name="content"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            {% else %}
+                <p>Please sign in to add review!</p>
+            {% endif %}
+        </div>
+    </div>
+        </div>
+        
+    </div>
+    <!-- Related Products Section End -->
+
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-1.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-2.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-3.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-4.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer-left">
+                        <div class="footer-logo">
+                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello.colorlib@gmail.com</li>
+                        </ul>
+                        <div class="footer-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1">
+                    <div class="footer-widget">
+                        <h5>Information</h5>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Serivius</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="footer-widget">
+                        <h5>My Account</h5>
+                        <ul>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Shopping Cart</a></li>
+                            <li><a href="#">Shop</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="newslatter-item">
+                        <h5>Join Our Newsletter Now</h5>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#" class="subscribe-form">
+                            <input type="text" placeholder="Enter Your Mail">
+                            <button type="button">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-reserved">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright-text">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </div>
+                        <div class="payment-pic">
+                            <img src="img/payment-method.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+{% endblock content %}
+
+    

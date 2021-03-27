@@ -1,0 +1,101 @@
+{% extends 'adminpages/admin_base.html' %}
+
+{% block content %}
+<hr>
+
+
+<hr>
+
+
+
+<hr>
+
+<div class="row">
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  mb-3" id="total-orders">
+			  	<div class="card-header top-colour">
+			  		<h5 class="card-title">Total Orders</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{total_orders}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  mb-3" id="orders-delivered">
+			  	<div class="card-header top-colour">
+			  		<h5 class="card-title">Orders Delivered</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{delivered}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  mb-3" id="orders-pending">
+			  	<div class="card-header top-colour">
+			  		<h5 class="card-title">Orders Pending</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{pending}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
+            <a class="btn btn-outline-success" href="{% url 'store'%}">&#x2190; Back to Store</a>
+
+<hr>
+<div class="container">
+	{% block sidebar %}{% include 'adminpages/sidebar.html' %}{% endblock sidebar%}
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>All Pending Orders</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Order ID </th>
+                        <th>Customer</th>
+                        <th>Ordered On</th>
+						<th>Status</th>
+                        <th>Complete</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in pending_orders %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td><a href="{% url 'update_order' order.id%}">#ORDER_{{order.id}}</a></td>
+                        <td>{{order.customer}}</td>
+                        <td>{{order.date_ordered}}</td>
+						<td>{{order.status}}</td>
+                        <td>{{order.complete}}</td>
+                        <td> $ {{order.get_cart_total}}</td>
+						<td> {{order_item.prduct}}</td>
+
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}
