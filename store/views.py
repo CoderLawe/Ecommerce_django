@@ -37,7 +37,7 @@ def home(request):
     items = data['items']
     category = Category.objects.all()
     properties = SiteProperties.objects.get(purpose="Home Carousel")
-
+    featured = Product.objects.filter(featured=True)
     articles = Article.objects.all().order_by('date')[0:5]
     json_serializer = serializers.get_serializer("json")()
     timer = json_serializer.serialize(Timer.objects.all(), ensure_ascii=False)
