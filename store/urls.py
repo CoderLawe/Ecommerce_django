@@ -26,6 +26,9 @@ urlpatterns = [
     path("admin-delivering/", views.out_for_delivery, name="delivering"),
 
     path("admin-delivered/", views.delivered, name="delivered"),
+
+    path("admin-pending/", views.pending_orders, name="pending"),
+
     
 
     path('update_item/', views.updateItem, name="update_item"),

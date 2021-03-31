@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 from json import dumps
+from django_tables2.export.export import TableExport
 
 
 
@@ -75,6 +76,8 @@ def store(request):
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
+    category = Category.objects.all()
+
 
 
     products = Product.objects.all()
@@ -84,7 +87,7 @@ def store(request):
 
     print(products, cartItems)
     return render(request, 'store/shop.html',
-                  {'products': products, 'cartItems': cartItems, 'order':order,'items':items})
+                  {'products': products, 'cartItems': cartItems, 'order':order,'items':items,'category':category})
 
 
 def cart(request):
@@ -92,8 +95,10 @@ def cart(request):
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
+    category = Category.objects.all()
 
-    context = {'items': items, 'order': order, 'cartItems': cartItems}
+
+    context = {'items': items, 'order': order, 'cartItems': cartItems,'category':category}
     return render(request, 'store/shopping-cart.html', context)
 
 
@@ -333,7 +338,7 @@ def update_order(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
     shipping  = ShippingAddress.objects.get(customer=order.customer)
-    qs = OrderItem.objects.all()
+    qs = OrderItem.objects.filter(order=order)
     
 
     if request.method == 'POST':
@@ -447,6 +452,19 @@ def delivered(request):
     context = {'done':done,'total_orders': total_orders, 'delivered': delivered, "pending": pending }
 
     return render(request,'adminpages/admin_delivered.html',context)
+
+
+def pending_orders(request):
+    all_orders = Order.objects.all()
+    done = all_orders.filter(status="Delivered")
+    pending_orders = all_orders.filter(status="Pending")
+
+    total_orders = all_orders.count()
+    delivered = all_orders.filter(complete='True').count()
+    pending = all_orders.filter(status='Pending').count()
+    context = {'done':done,'total_orders': total_orders, 'delivered': delivered, "pending": pending, 'pending_orders':pending_orders}
+
+    return render(request,'adminpages/admin_pending.html',context)
 
 class AdminHomeView(AdminRequiredMixin, TemplateView):
     template_name = "adminpages/admin_home_page.html"
@@ -599,18 +617,50 @@ class admin_orders(AdminRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         orders = Order.objects.all()
+        orderitems = OrderItem.objects.all()
+        pending = Order.objects.filter(status="Pending")
+        qs = orderitems.order_by('order')
+
         context = {
-            "orders": orders
+            "orders": orders,'qs':qs, 'pending':pending
             
         }
         return render(request, "adminpages/admin_orders.html", context)
 
 def Export(request):
-    
+    order = Order.objects.get_or_create(customer=customer, complete=False)
+
+    order_fields = [x.name for x in order.get_cart_item]
+    print(order_fields)
+    """
+
+    orderitem_fields = [x.name for x in OrderItem._meta.concrete_fields]
+    shipping_address_fields = [x.name for x in ShippingAddress._meta.concrete_fields]
+
+    all_fields = order_fields + orderitem_fields + shipping_address_fields
+    order_list = list(OrderItem.objects.values_list(*all_fields))
+
+    with open('test_export.csv', 'w', newline='') as myfile:
+        for _list in order_list:
+            wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+            wr.writerow(_list)
+            """
+    """
    response = HttpResponse(content_type ='text/csv')
 
    writer = csv.writer(response)
    writer.writerow(['customer','date_ordered','complete','No of items','product'])
+
+   rows = []
+
+   order_row = Order.objects.all()
+   shipping = ShippingAddress.objects.filter(order=order_row)
+   rows.append(order_row)
+   rows.append(shipping)
+
+   print(rows)
+
+   
 
 
    for order in Order.objects.all().values_list('customer','date_ordered','complete','orderitem'):
@@ -623,6 +673,19 @@ def Export(request):
    response['content-Disposition'] = 'attachment; filename="total_orders.csv"'
 
    return response
+"""
+
+
+
+def table_export():
+    export_format = request.GET.get('_export', None)
+
+    if TableExport.is_valid_format(export_format):
+        table = [[Order],[ShippingAddress]]
+        exporter = TableExport(export_format, table)
+        return exporter.response('File_Name.{}'.format(export_format))
+
+
 class ClubChartView(TemplateView):
     template_name = 'adminpages/chart.html'
 
@@ -705,7 +768,7 @@ def article_list(request):
     #num_visits = request.session.get('num_visits', 0)
     #request.session['num_visits'] = num_visits + 1
 
-    return render(request, 'store/blog.html', {'articles': articles,'data': data, 'cartItems':cartItems,'order':order, 'items':items,'about':about, 'recent':recent, 'page_obj':page_obj, 'categories':categories})
+    return render(request, 'store/blog.html', {'articles': articles,'data': data, 'cartItems':cartItems,'order':order, 'items':items,'about':about, 'recent':recent, 'page_obj':page_obj, 'category':categories})
 
 
 #For comparison

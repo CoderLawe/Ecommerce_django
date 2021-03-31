@@ -194,6 +194,7 @@ class Order(models.Model):
     def get_cart_item(self):
         orderitems = self.orderitem_set.all()
         name = [item.product.name for item in orderitems]
+        print(name)
         return name
 
     def get_cart_quantity(self):

@@ -11,7 +11,10 @@
 	<div class="col-md-6">
 		<div class="card card-body">
 		<div class='card card-title'>
-			<p>Product: {{qs.product}}</p>
+		<p> Products </p>
+		{% for qs in qs %}
+			<p> {{qs.product}}</p>
+		{% endfor %}
 		</div>
 			<form action="" method="POST">
             	{% csrf_token %}
