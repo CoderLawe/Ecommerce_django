@@ -44,11 +44,26 @@ def home(request):
     timer = json_serializer.serialize(Timer.objects.all(), ensure_ascii=False)
 
 
+    if request.method == "POST": 
+        form = NewsletterForm(request.POST)
+       
+        if form.is_valid():
+            instance = form.save(commit = False)
+            instance.save()
+            return redirect('list')
+         
+            
+    else: 
+        form = NewsletterForm()
+
+
 
     products = Product.objects.all()[:5]
 
     context = {
-        'items': items, 'order': order, 'cartItems': cartItems, 'products':products, 'articles':articles, 'timer':timer,'category':category,'properties':properties
+        'items': items, 'order': order, 'cartItems': cartItems, 
+        'products':products, 'articles':articles, 'timer':timer,
+        'category':category,'properties':properties,'form':form
     }
 
     return render(request, "store/boot_home.html", context)
