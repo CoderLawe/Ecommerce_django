@@ -1,4 +1,5 @@
 {% block footer %}
+{% load widget_tweaks %}
 
     <!-- Footer Section Begin -->
     <footer class="footer-section">
@@ -48,12 +49,12 @@
                     <div class="newslatter-item">
                         <h5>Join Our Newsletter Now</h5>
                         <p>Get E-mail updates about our latest shop and special offers.</p>
-                        <form action="#" class="subscribe-form">
-                        <div class="text-white">
-                            {{form}}
-                        <div>
-                        </form>
-                            <button class = "btn btn danger "type="button">Subscribe</button>
+                <form action="{% url 'newsletter' %}" class="subscribe-form" method="POST">
+                    {% csrf_token %}
+                    {{form}}
+                    <hr>
+                    <input type="submit" class="btn btn-outline-warning">
+	            </form>
 
                     </div>
                 </div>
