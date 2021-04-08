@@ -44,8 +44,12 @@
         
             <div class="inner-header">
                 <div class="row">
-                    <div class="col-lg-2 col-md-2">
-                        
+                    <div class="col-lg-2 col-md-2 col-sm-2 ">
+                        <div class="logo">
+                            <a href="{% url 'store' %}">
+                            <img src="{% static 'images/logo_lawe.png'%}" style="height:100px; width:auto; border-radius:50%;">
+                            </a>
+                        </div>
                     </div>
 
 
@@ -58,7 +62,7 @@
                             <form class="#" action="{% url 'search'%}" method="GET">
 
                             <div class="input-group">
-                                <input name="keyword" class="form-control mr-sm-2 col-sm-4" type="search" placeholder="Search" aria-label="Search" required>
+                                <input name="keyword" class="form-control mr-sm-2 col-sm-4" type="search" placeholder="Search the store" aria-label="Search" required>
                                 <button class="button" type="submit">
                                 <i class="ti-search"></i>
                                 </button>
@@ -117,6 +121,7 @@
                 </div>
             </div>
         </div>
+
         <div class="nav-item">
             <div class="container">
                 <div class="nav-depart">
