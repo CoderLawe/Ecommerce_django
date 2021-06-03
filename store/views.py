@@ -13,10 +13,13 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
+from bs4 import BeautifulSoup
 import json
 import datetime
 import csv
 import smtplib
+import requests
+import lxml
 
 from .models import *
 from .utils import cookieCart, cartData, guestOrder
@@ -43,6 +46,7 @@ def home(request):
     json_serializer = serializers.get_serializer("json")()
     timer = json_serializer.serialize(Timer.objects.all(), ensure_ascii=False)
 
+   
 
     if request.method == "POST": 
         form = NewsletterForm(request.POST)
@@ -63,7 +67,8 @@ def home(request):
     context = {
         'items': items, 'order': order, 'cartItems': cartItems, 
         'products':products, 'articles':articles, 'timer':timer,
-        'category':category,'properties':properties,'form':form
+        'category':category,'properties':properties,'form':form,
+        'featured':featured
     }
 
     return render(request, "store/boot_home.html", context)
@@ -180,20 +185,20 @@ def updateGuest_item(request):
 
     return JsonResponse('Item was added', safe=False)
 
-def email_send():
+# def email_send():
 
-    email_details = Send_email.objects.all()
-    sender_email = "sosahlawe@gmail.com"
-    reciever_email = "mantsenii0@gmail.com"
-    password = 'Explorer101DogsAreAwesome' #Try putting all these in a form
-    message = "Transaction completed! By Lawe Sosah"
+#     email_details = Send_email.objects.all()
+#     sender_email = "sosahlawe@gmail.com"
+#     reciever_email = "mantsenii0@gmail.com"
+#     password = 'Explorer101DogsAreAwesome' #Try putting all these in a form
+#     message = "Transaction completed! By Lawe Sosah"
 
-    server = smtplib.SMTP('smtp.gmail.com',587)
-    server.starttls()
-    server.login(sender_email,password)
-    print("Login success")
-    server.sendmail(sender_email,reciever_email,message)
-    print("Email has been sent to", reciever_email)
+#     server = smtplib.SMTP('smtp.gmail.com',587)
+#     server.starttls()
+#     server.login(sender_email,password)
+#     print("Login success")
+#     server.sendmail(sender_email,reciever_email,message)
+#     print("Email has been sent to", reciever_email)
 
 def inventory():
     order = Order.objects.get(order=Order)
@@ -221,7 +226,7 @@ def process_order(request):
 
     if total == float(order.get_cart_total):
         order.complete = True
-        email_send()
+        # email_send() Remember to include this later
         inventory()
         for item in order.get_cart_quantity():
             product = item.product
@@ -497,10 +502,15 @@ class AdminHomeView(AdminRequiredMixin, TemplateView):
         newsletter = Newsletter.objects.all().order_by('date')
         articles = Article.objects.all()
 
-
+        response = requests.get('https://disease.sh/v3/covid-19/countries')
+        data = response.json()
+        print(data)
+        # country = data['country']
+        # print('country',country.data)
         orders = qs
         orderFilter = OrderHomeFilter(request.GET, queryset=orders) 
         orders = orderFilter.qs
+
 
 
 
@@ -522,7 +532,9 @@ class AdminHomeView(AdminRequiredMixin, TemplateView):
         context = {
             "all_orders": all_orders, 'total_orders': total_orders, 
             'delivered': delivered, "pending": pending,"pending_orders":pending_orders,
-            'qs':qs,'products':products,'filter':orderFilter,'orders':orders, 'items': items, 'order': order, 'cartItems': cartItems,'newsletter':newsletter,'articles':articles
+            'qs':qs,'products':products,'filter':orderFilter,'orders':orders, 'items': items, 
+            'order': order, 'cartItems': cartItems,'newsletter':newsletter,'articles':articles,
+            'country':data
 
             
         }

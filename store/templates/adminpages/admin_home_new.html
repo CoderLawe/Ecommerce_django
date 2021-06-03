@@ -22,7 +22,9 @@
 	</div>
 
 	<div class="col-md-7">
-    
+    {% for country in data %}
+		{{country}}
+	{% endfor %}
 		<h5>NEWSLETTER SIGNEES </h5> 
 		<a class="btn btn-sm btn-dark" href="{% url 'export'%}">Export to  Spreadsheet</a>
 

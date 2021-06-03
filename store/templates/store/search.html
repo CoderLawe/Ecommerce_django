@@ -1,4 +1,4 @@
-{% extends 'store/base.html'%}
+{% extends 'store/blog_base.html'%}
 {% block content %}
 
 <br>
@@ -6,6 +6,7 @@
 <br>
 <br>
 <hr>
+{% block navbar %}{% include 'store/header.html' %}{% endblock navbar%}
 <div class="container">
     <div class="row">
         <div class="col-md-12">

@@ -46,14 +46,14 @@ class Customer(models.Model):
     
 
 class Category(models.Model):
-    CATEGORY = (
-        ('Indoor', 'Indoor'),
-        ('Out Door', 'Out Door'),
-        ('Gen', 'Gen'),
+    CATEGORIES = (
+        ('Phones', 'Phones'),
+        ('Computers', 'Computers'),
+        ('Accesories', 'Accesories'),
 
     )
 
-    title = models.CharField(max_length=200, choices=CATEGORY,default = 'Gen')
+    title = models.CharField(max_length=200,default = 'Gen')
     slug = models.SlugField(unique=True)
 
 
@@ -71,6 +71,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank = True,upload_to = 'images/')
     description = models.TextField()
+    detailed_description = models.TextField(null=True, blank="True")
     slug = models.SlugField(default=None)
     featured  = models.BooleanField(default=False)
     num_available = models.IntegerField(default=1)
@@ -246,6 +247,7 @@ class Newsletter(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField()
     date = models.DateTimeField(auto_now_add=True)
+    message= models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -1,14 +1,31 @@
 {% extends 'store/blog_base.html' %}
 
 {% block content %}
+{% load static %}
 {% load widget_tweaks %}
 {% block header %}{% include 'store/header.html' %}{% endblock header %}
 
 <div class="row">
-	<div class="col-md-6">
-	<div class="card card-body border-right border-top border-left">
 
-	<form action="{% url 'newsletter' %}" method="POST">
+	<div class="col-md-7 border-left" style="border-radius:10px;margin-top:10px; margin-left: 10px; border: 0px solid black;
+	box-shadow: 0px 6px 18px -9px rgba(0,0,0,0.75);">
+
+		<h5 style="text-align:center; justify-content:bold; padding:5px;"><strong>Have questions?</strong></h5>
+			<p> Leave us a message here</p>
+		<hr>
+
+		<h5> We are located at the Midway Mall, opposite Imenti house, on the first floor, Shop U1</h5>
+	<hr>
+		<div class="map__image">
+			<img  src="{% static 'images/map_image.png'%}">
+		</div>
+
+
+	</div>
+	<div class="col-md-4">
+		<div class="card card-body border-right border-top border-left">
+
+		<form action="{% url 'newsletter' %}" method="POST">
             	{% csrf_token %}
 				{% for field in form %}
 					{{field.label}}

@@ -26,7 +26,7 @@ class CreateProduct(forms.ModelForm):
     class Meta:
         model = Product
 
-        fields = ['name', 'price','category', 'digital', 'image' , 'description', 'slug']
+        fields = ['name', 'price','category', 'digital', 'image' , 'description', 'slug',"featured"]
 
         widgets = {
             'name':forms.TextInput(attrs={'class':'form-group row'}),
@@ -36,6 +36,7 @@ class CreateProduct(forms.ModelForm):
             "image": forms.ClearableFileInput(attrs={"class": "form-control","multiple": True}),
             'description': forms.Textarea(attrs={'class': 'form-group row'}),
             'slug': forms.TextInput(attrs={'class': 'form-group row'}),
+            'featured':forms.CheckboxInput(attrs={"class":'form-group row'})
 
         }
 

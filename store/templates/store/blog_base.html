@@ -1,14 +1,28 @@
 {% load static %}
+<style>
+.parallax {
+  /* The image used */
+  background-image: url('/static/images/background1.jpg');
 
+  /* Set a specific height */
+  height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Fashi Template">
     <meta name="keywords" content="Fashi, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="{% static 'images/favicon.png'%}" type="image/x-icon">
+  <link rel="shortcut icon" href="{% static 'images/lynam.jpeg'%}" type="image/x-icon">
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ecom | Sosah</title>
+    <title>Lynam Computers | Sosah</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -76,6 +90,7 @@ console.log('Cart:',cart)
 </head>
 
 <body>
+
 
         {% block content %}
 

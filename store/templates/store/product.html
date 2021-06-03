@@ -3,7 +3,21 @@
 {% block content %}
 {% load widget_tweaks %}
 {% block header %}{% include 'store/header.html' %}{% endblock header %}
+<style>
+.parallax {
+  /* The image used */
+  background-image: url('/static/images/background1.jpg');
 
+  /* Set a specific height */
+  height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -26,11 +40,12 @@
     <!-- Breadcrumb Section Begin -->
 
     <!-- Product Shop Section Begin -->
-    <section class="product-shop spad page-details">
+    <section class="product-shop spad page-details" >
         <div class="container">
             <div class="row">
                 
-                <div class="col-lg-9" >
+                <div class="col-lg-9">
+                <div class="the_container">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="product-pic-zoom">
@@ -61,8 +76,10 @@
                             <div class="product-details">
                                 <div class="pd-title">
                                     <span>oranges</span>
-                                    <h3>{{products.name}}, Stars: {{ products.get_rating |floatformat:1}}</h3>
-                                    <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
+                                    <h3>{{products.name}}</h3>
+
+{% comment %} Stars important {% endcomment %}
+                                    {% comment %} , Stars: {{ products.get_rating |floatformat:1}} {% endcomment %}
                                 </div>
                                 <div class="pd-rating">
                                 {% for rating in rating %}
@@ -71,60 +88,25 @@
                                     <span>({{products.get_rating |floatformat:1}})</span>
                                 </div>
                                 <div class="pd-desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur ing elit, sed do eiusmod tempor sum dolor
-                                        sit amet, consectetur adipisicing elit, sed do mod tempor</p>
-                                    <h4>$495.00 <span>629.99</span></h4>
+                                    <p> {{products.description}}</p>
+                                    <h4>Kshs{{products.price}} <span>60,000</span></h4>
                                 </div>
-                                <div class="pd-color">
-                                    <h6>Color</h6>
-                                    <div class="pd-color-choose">
-                                        <div class="cc-item">
-                                            <input type="radio" id="cc-black">
-                                            <label for="cc-black"></label>
-                                        </div>
-                                        <div class="cc-item">
-                                            <input type="radio" id="cc-yellow">
-                                            <label for="cc-yellow" class="cc-yellow"></label>
-                                        </div>
-                                        <div class="cc-item">
-                                            <input type="radio" id="cc-violet">
-                                            <label for="cc-violet" class="cc-violet"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pd-size-choose">
-                                    <div class="sc-item">
-                                        <input type="radio" id="sm-size">
-                                        <label for="sm-size">s</label>
-                                    </div>
-                                    <div class="sc-item">
-                                        <input type="radio" id="md-size">
-                                        <label for="md-size">m</label>
-                                    </div>
-                                    <div class="sc-item">
-                                        <input type="radio" id="lg-size">
-                                        <label for="lg-size">l</label>
-                                    </div>
-                                    <div class="sc-item">
-                                        <input type="radio" id="xl-size">
-                                        <label for="xl-size">xs</label>
-                                    </div>
-                                </div>
+                                
+                                
                                 <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text " value="1"  data-product={{item.product.id}} data-action="add">
 
+                                     <a  href="{% url 'cart' %}" class="btn btn-sm btn-outline-dark" style="margin-right: 10px;">View Cart</a>
 
-                                    </div>
                                     <button data-product={{products.id}} data-action="add" class="primary-btn pd-cart add-btn update-cart">Add To Cart</button>
 
                                 </div>
                                 <ul class="pd-tags">
-                                    <li><span>CATEGORIES</span>: More Accessories, Wallets & Cases</li>
-                                    <li><span>TAGS</span>: Clothing, T-shirt, Woman</li>
+                                    <li><span>CATEGORY</span>: {{products.category}}</li>
+                                    <li><span>TAGS</span>: Macbook, Apple</li>
                                 </ul>
                                 <div class="pd-share">
                                     <div class="p-code">Sku : 00012</div>
+                        </div>
                                     <div class="pd-social">
                                         <a href="#"><i class="ti-facebook"></i></a>
                                         <a href="#"><i class="ti-twitter-alt"></i></a>
@@ -138,7 +120,7 @@
             
 
 
-                    <div class="product-tab">
+                    <div class="product-tab ">
                         <div class="tab-item">
                             <ul class="nav" role="tablist">
                                 <li>
@@ -158,11 +140,8 @@
                                     <div class="product-content">
                                         <div class="row">
                                             <div class="col-lg-7">
-                                                <h5>Introduction</h5>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                                    aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
+                                                <h5>Product Overview</h5>
+                                                <p>{{products.description}}} </p>
                                                 <h5>Features</h5>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                                                     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -194,7 +173,7 @@
                                             <tr>
                                                 <td class="p-catagory">Price</td>
                                                 <td>
-                                                    <div class="p-price">$495.00</div>
+                                                    <div class="p-price">Ksh {{products.price}}</div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -206,7 +185,7 @@
                                             <tr>
                                                 <td class="p-catagory">Availability</td>
                                                 <td>
-                                                    <div class="p-stock">22 in stock</div>
+                                                    <div class="p-stock">Available</div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -221,10 +200,10 @@
                                                     <div class="p-size">Xxl</div>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            {% comment %} <tr>
                                                 <td class="p-catagory">Color</td>
                                                 <td><span class="cs-color"></span></td>
-                                            </tr>
+                                            </tr> {% endcomment %}
                                             <tr>
                                                 <td class="p-catagory">Sku</td>
                                                 <td>
@@ -307,10 +286,10 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 border-left">
+                <div class="col-lg-3 border-left" style="border-radius:20px;">
         <p>Subscribe to our Newsletter</p>  
 <div class="row">
-	<div class="card card-body border-right border-top border-left">
+	<div class="card card-body border-right border-top border-left " style"border-radius:10px;">
 
 	<form action="{% url 'newsletter' %}" method="POST">
             	{% csrf_token %}
@@ -472,81 +451,7 @@
         </div>
     </div>
     <!-- Partner Logo Section End -->
-
-    <!-- Footer Section Begin -->
-    <footer class="footer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="footer-left">
-                        <div class="footer-logo">
-                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
-                        </div>
-                        <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello.colorlib@gmail.com</li>
-                        </ul>
-                        <div class="footer-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 offset-lg-1">
-                    <div class="footer-widget">
-                        <h5>Information</h5>
-                        <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Checkout</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Serivius</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="footer-widget">
-                        <h5>My Account</h5>
-                        <ul>
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Shopping Cart</a></li>
-                            <li><a href="#">Shop</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="newslatter-item">
-                        <h5>Join Our Newsletter Now</h5>
-                        <p>Get E-mail updates about our latest shop and special offers.</p>
-                        <form action="#" class="subscribe-form">
-                            <input type="text" placeholder="Enter Your Mail">
-                            <button type="button">Subscribe</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="copyright-reserved">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="copyright-text">
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </div>
-                        <div class="payment-pic">
-                            <img src="img/payment-method.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Footer Section End -->
+{% block footer %}{% include 'store/footer_block.html' %}{% endblock footer %}
 
 {% endblock content %}
 

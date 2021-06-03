@@ -9,7 +9,9 @@
     <div class="col-lg-4 col-sm-6">
         <div class="product-item">
             <div class="pi-pic">
+            <a href="{% url 'detail' slug=product.slug %}">
                 <img src="{{product.image.url}}" alt="">
+            </a>
                 <div class="sale pp-sale">Sale</div>
                 <div class="icon">
                     <i class="icon_heart_alt"></i>
@@ -21,13 +23,15 @@
                 </ul>
             </div>
             <div class="pi-text">
-                <div class="catagory-name">Towel</div>
+                <div class="catagory-name">{{product.category}}</div>
+                <hr>
                 <a href="#">
-                    <h5>{{products.name}}</h5>
+                    <h5 style="padding:20px;">{{product.name}}</h5>
                 </a>
+                
                 <div class="product-price">
-                    ${{product.price}}
-                    <span>$35.00</span>
+                    Ksh{{product.price}}
+                    <span>Ksh350,00</span>
                 </div>
             </div>
 <button data-product ={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>

@@ -22,7 +22,8 @@
 
     <div id="shipping-info">
     <hr>
-        <p>Shipping Information:</p>
+        <h5<strong>Place your order here:</strong></h5>
+        <p><strong> Please leave your contact details below, and we'll get back to you</strong></p>
         <hr>
         <div class="form-field">
             <input class="form-control" type="text" name="address" placeholder="Address..">
@@ -48,13 +49,17 @@
 
         <br>
 
+    <div class="box-element hidden" id="payment-info">
+        <a class="btn btn-lg btn-dark" style="object-fit:contain; display:flex;" id="make-payment">Click to place Order</a>
+    </div>
+{% comment %} 
          <div class="box-element hidden" id="payment-info">
                 <small> Paypal Options</small>
 				<div id="paypal-button-container"></div>
 
             <!-- <button id="make-payment" > Make Payment</button> -->
 
-            </div>
+            </div> {% endcomment %}
 
 
     </div>
@@ -94,7 +99,7 @@
 
 
             // Set up the transaction
-            createOrder: function(data, actions) {
+            {% comment %} createOrder: function(data, actions) {
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
@@ -111,7 +116,7 @@
                     submitFormData()
 
                 });
-            }
+            } {% endcomment %}
 
 
         }).render('#paypal-button-container');
@@ -164,12 +169,12 @@
     document.getElementById('payment-info').classList.remove('hidden')
 
     })
-/*
+
     document.getElementById('make-payment').addEventListener('click',function(e){
         submitFormData()
     })
 
-    */
+    
 
 
     function submitFormData(){

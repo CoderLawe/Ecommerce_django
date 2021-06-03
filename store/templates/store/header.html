@@ -7,11 +7,11 @@
                 <div class="ht-left">
                     <div class="mail-service">
                         <i class=" fa fa-envelope"></i>
-                        sosahlawe@gmail.com
+                        lynamcomputers@gmail.com
                     </div>
                     <div class="phone-service">
                         <i class=" fa fa-phone"></i>
-                        +65 11.188.888
+                            +254708835133
                     </div>
                 </div>
                 <div class="ht-right">
@@ -47,7 +47,7 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 ">
                         <div class="logo">
                             <a href="{% url 'store' %}">
-                            <img src="{% static 'images/logo_lawe.png'%}" style="height:100px; width:auto; border-radius:50%;">
+                            <img src="{% static 'images/lynam.jpeg'%}" style="height:100px; width:auto; border-radius:50%;">
                             </a>
                         </div>
                     </div>
@@ -58,11 +58,11 @@
 
                     <div class="col-lg-7 col-md-7">
                         <div class="advanced-search">
-                            <button type="button" class="category-btn">All Categories</button>
+                            <button type="button" class="category-btn" style="border-color:white; ">All Categories</button>
                             <form class="#" action="{% url 'search'%}" method="GET">
 
                             <div class="input-group">
-                                <input name="keyword" class="form-control mr-sm-2 col-sm-4" type="search" placeholder="Search the store" aria-label="Search" required>
+                                <input name="keyword" class="form-control mr-sm-2 col-sm-4" type="search" placeholder="Search" aria-label="Search" required>
                                 <button class="button" type="submit">
                                 <i class="ti-search"></i>
                                 </button>
@@ -140,14 +140,16 @@
                     <ul>
                         <li class="active"><a href="{% url 'home' %}">Home</a></li>
                         <li><a href="{% url 'store' %}">Shop</a></li>
-                        <li><a href="#">Collection</a>
+
+                        
+                        {% comment %} <li><a href="#">Collection</a>
                             <ul class="dropdown">
-                                <li><a href="#">Indoor</a></li>
-                                <li><a href="#">Outdoor</a></li>
-                                <li><a href="#">Gen</a></li>
+                            {% for category in Categories%}
+                                <li><a href="#">{{category.title}}</a></li>
+                            {% endfor %}
                             </ul>
-                        </li>
-                        <li class="active"><a href="{% url 'list' %}">Blog</a></li>
+                        </li> {% endcomment %}
+                        <li class="active"><a href="{% url 'newsletter' %}">About</a></li>
                         <li><a href="{% url 'newsletter'%}">Contact</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="dropdown">

@@ -1,17 +1,17 @@
 {% extends 'store/blog_base.html' %}
 {% load static %}
 {% block content %}
-
+{% comment %} 
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> {% endcomment %}
 
 
  <style>
 .parallax {
   /* The image used */
-  background-image: url("img_parallax.jpg");
+  background-image: url('/static/images/background1.jpg');
 
   /* Set a specific height */
   height: 500px;
@@ -30,32 +30,32 @@
     <section class="hero-section ">
         <div class="hero-items owl-carousel">
 
-            <div class="single-hero-items set-bg break" data-setbg="{% static 'images/sunglasses.jpg'%}" style="width: 100%; height:100%; background-position:center; background-size:cover;">
+         
+            <div class="single-hero-items set-bg" data-setbg="{% static 'images/mac1.jpg'%}" style="width: 100%; height:100%; background-position:center; background-size:cover;">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-5">
-                            <span>Bag,kids</span>
-                            <h1>Black friday</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore</p>
-                            <a href="{% url 'store' %}" class="primary-btn">Shop Now</a>
-                            
+                            <span>Laptops</span>
+                            <h1 class="text-white">Apple Laptops</h1>
+                            <p class="text-white">Shop now for the best deals on Macs and iPhones!</p>
+                            <a href="#" class="primary-btn">Shop Now</a>
                         </div>
                     </div>
                     <div class="off-card">
-                        <h2>Sale <span>50%</span></h2>
+                        <h2>New Arrivals <span></span></h2>
                     </div>
                 </div>
             </div>
-            <div class="single-hero-items set-bg" data-setbg="{% static 'images/binoculars.jpg'%}" style="width: 100%; height:100%; background-position:center; background-size:cover;">
+
+           <div class="single-hero-items set-bg break" data-setbg="{% static 'images/iphone10dark.jpg'%}" style="width: 100%; height:100%; background-position:center; background-size:cover;">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-5">
-                            <span>Bag,kids</span>
-                            <h1 class="bg=invers">Black friday</h1>
-                            <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore</p>
-                            <a href="#" class="primary-btn">Shop Now</a>
+                            <span>Phones</span>
+                            <h1 style="color:#4E4E4E">Good deals on iPhones!</h1>
+                            <p style="color:#4E4E4E">We sell wholesale laptops and phones</p>
+                            <a href="{% url 'store' %}" class="primary-btn">Shop Now</a>
+                            
                         </div>
                     </div>
                     <div class="off-card">
@@ -66,7 +66,6 @@
         </div>
     </section>
 <br>
-    <hr>
     <!-- Hero Section End -->
 
     <!-- Banner Section Begin 
@@ -104,16 +103,50 @@
     <!-- Banner Section End -->
 
     <!-- Women Banner Section Begin -->
-    <section class="women-banner spad">
+<div class="parallax">
+    <div class="filter-control">
+        <ul>
+            <li class="active">Featured Deals</li>
+            
+        </ul>
+    </div>  
+<div class="row">
+    <div class="app__row ">
+
+        <div class="row__posters">
+            {% for product in featured %}
+            <a href="{% url 'detail' slug=product.slug %}">
+            <img class="row__poster row__posterLarge" src="{{product.image.url}}">
+            </a>
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+</div>
+<hr>
+    <section class=" container women-banner spad">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-sm-3">
+            
+        {% comment %} <div class="app__top">
+            <div class="card__accesories" >
+                <img src="{% static 'images/binoculars.jpg'%}">
+                <h2> Accessories!</h2>
+                <a class="btn btn-outline-dark">Discover More!</a>
+                <hr>
+            </div> {% endcomment %}
+            
+                {% comment %} <div class="col-lg-3 col-sm-3">
                     <div class="product-large set-bg " data-setbg="{% static 'images/binoculars.jpg'%}">
                         <h2>Accessories</h2>
                         <a href="#">Discover More</a>
                     </div>
-                </div>
-                <div class="col-lg-8 col-md-4  offset-lg-1">
+                </div> {% endcomment %}
+
+                
+                {% comment %} <div class="col-lg-8 col-md-4  offset-lg-1">
                     <div class="filter-control">
                         <ul>
                             <li class="active">Featured</li>
@@ -122,7 +155,7 @@
                     </div>
                     <div class="product-slider owl-carousel">
                     {% for product in products %}
-                        <div class="product-item col-6-auto ">
+                        <div class="product-item">
                             <div class="pi-pic">
                                 <img src="{{product.image.url}}" alt="">
                                 <div class="sale">Sale</div>
@@ -154,13 +187,31 @@
 
                         
                     </div>
-                </div>
+
+                    
+                </div> {% endcomment %}
 <hr>
-                <div class="product-list">
+{% comment %} <div class="row">
+    {% for product in products %}
+    <div class="card__home">
+        <img src="{{product.image.url}}">
+            <div class="card__info">
+                <h2> {{product.name}}</h2>
+                <h4>{{product.description}} </h4>
+                <h3> ${{product.price}}</h3>
+            </div>
+    </div>
+
+    {% endfor %}
+
+</div> {% endcomment %}
+            <div class="the_products">
+                <div class="product-list ">
                         <div class="row">
                         {% for product in products %}
                             <div class="col-6 col-md-4 ">
                                 <div class="product-item">
+                                
                                     <div class="pi-pic">
                                     <a href="{% url 'detail' slug=product.slug %}">
                                         <img src="{{product.image.url}}" alt="">
@@ -173,10 +224,15 @@
                                             <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
                                            <!-- <li class="quick-view"><a href="{% url 'detail' slug=product.slug %}">+ Quick View</a></li>-->
                                             <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
+                                        </ul>                                            
+
                                     </div>
                                     <div class="pi-text">
-                                        <div class="catagory-name">Towel</div>
+                                        <div class="catagory-name">Deal</div>
+                                            <h5>{{product.name}}</h5>
+                                            <br>
+                                            <button data-product ={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>
+
                                         <a href="#">
                                             <h5>{{products.name}}</h5>
                                         </a>
@@ -185,7 +241,6 @@
                                             <span>$35.00</span>
                                         </div>
                                     </div>
-             <button data-product ={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>
 
                                 </div>
                             </div>
@@ -194,7 +249,6 @@
                     </div>
 
             </div>
-
         </div>
 
     </section>
@@ -241,22 +295,15 @@
     <!-- Deal Of The Week Section End -->
 
     <!-- Man Banner Section Begin -->
-    <section class="man-banner spad">
+    {% comment %} <section class="man-banner spad">
         <div class="container-fluid">
+
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="filter-control">
-                        <ul>
-                            <li class="active">Clothing</li>
-                            <li>HandBag</li>
-                            <li>Shoes</li>
-                            <li>Accessories</li>
-                        </ul>
-                    </div>
-                    <div class="product-slider owl-carousel">
+                    <div class="parallax product-slider owl-carousel">
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="{% static 'images/products/man-1.jpg'%}" alt="">
+                                <img src="{% static 'images/iphonex.jpg'%}" alt="">
                                 <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
@@ -270,80 +317,16 @@
                             <div class="pi-text">
                                 <div class="catagory-name">Coat</div>
                                 <a href="#">
-                                    <h5>Pure Pineapple</h5>
+                                    <h5>{{product.name}}</h5>
                                 </a>
                                 <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
+                                {{product.price}}
+                                    <span>Kshs50,000</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="{% static 'images/products/man-2.jpg'%}" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Shoes</div>
-                                <a href="#">
-                                    <h5>Guangzhou sweater</h5>
-                                </a>
-                                <div class="product-price">
-                                    $13.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="{% static 'images/products/man-3.jpg'%}" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="{% static 'images/products/man-4.jpg'%}" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Converse Shoes</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
+                       
+                      
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 offset-lg-1">
@@ -354,52 +337,56 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> {% endcomment %}
     <!-- Man Banner Section End -->
 
     <!-- Instagram Section Begin -->
-    <div class="instagram-photo">
-        <div class="insta-item set-bg col-md-2" data-setbg="{% static 'images/insta-1.jpg'%}">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">the_lawe_way</a></h5>
+    <div class="insta-section">
+        <div class="instagram-photo">
+            <div class="insta-item set-bg col-md-2" data-setbg="{% static 'images/mac2020.png'%}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#">lynam_computers</a></h5>
+                </div>
             </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="{% static 'images/insta-2.jpg'%}">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">the_lawe_way</a></h5>
+            <div class="insta-item set-bg" data-setbg="{% static 'images/iphonexs.png'%}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#">lynam_computers</a></h5>
+                </div>
             </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="{% static 'images/insta-3.jpg'%}">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">the_lawe_way</a></h5>
+            <div class="insta-item set-bg" data-setbg="{% static 'images/allinone.png'%}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#">lynam_computers</a></h5>
+                </div>
             </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="{% static 'images/insta-4.jpg'%}">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">the_lawe_way</a></h5>
+            <div class="insta-item set-bg" data-setbg="{% static 'images/lenovo_yoga.png'%}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#">lynam_computers</a></h5>
+                </div>
             </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="{% static 'images/insta-5.jpg'%}">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">the_lawe_way</a></h5>
+            <div class="insta-item set-bg" data-setbg="{% static 'images/iphonex.jpg'%}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#">lynam_computers</a></h5>
+                </div>
             </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="{% static 'images/insta-6.jpg'%}">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">the_lawe_way</a></h5>
+            <div class="insta-item set-bg" data-setbg="{% static 'images/lotsaphones.png'%}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#">lynam_computers</a></h5>
+                </div>
             </div>
         </div>
     </div>
     <!-- Instagram Section End -->
 
     <!-- Latest Blog Section Begin -->
-    <section class="latest-blog spad">
+
+    {% comment %} BLOG SECTION IMPORTANT! {% endcomment %}
+    {% comment %} <section class="latest-blog spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -476,7 +463,7 @@
             </div>
             -->
         </div>
-    </section>
+    </section> {% endcomment %}
     <!-- Latest Blog Section End -->
 
     <!-- Partner Logo Section Begin -->
@@ -512,9 +499,14 @@
         </div>
     </div>
     <!-- Partner Logo Section End -->
-    {% block footer %} {% include 'store/footer_block.html'%} {% endblock footer %}
+    <div class="the__footer">
+{% block footer %} {% include 'store/footer_block.html'%} {% endblock footer %}
+</div>
 
     {% endblock content %}
+</div>
+   
+    
     <!-- Footer Section End -->
     <!-- Js Plugins -->
 
