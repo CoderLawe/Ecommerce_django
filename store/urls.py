@@ -10,7 +10,12 @@ urlpatterns = [
     path('store/',views.store, name="store"),
 
 
+     path('about/', views.about_us, name="about"),
 
+
+
+     path("shipping_details/<int:pk>/", views.shipping_details,
+         name="shipping_details"),
     path("admin-login/", AdminLoginView.as_view(), name="adminlogin"),
 
     path('admin-customer/', views.view_customer.as_view(), name="customer"),
@@ -29,7 +34,8 @@ urlpatterns = [
 
     path("admin-pending/", views.pending_orders, name="pending"),
 
-    
+    path('new_orders/<str:pk>/', views.new_order, name="new_orders"),
+
 
     path('update_item/', views.updateItem, name="update_item"),
     path('update_guest_item/', views.updateGuest_item, name="update_item"),
@@ -61,8 +67,9 @@ urlpatterns = [
 
 
 
-    path('create/', views.AdminProductCreateView.as_view(), name="create"),
+#     path('create/', views.AdminProductCreateView.as_view(), name="create"),
 
+    path('create/', views.AdminProductCreateView.as_view(), name="create"),
 
 
     path('carousel_edit/', views.carousel_detail, name="carousel"),
@@ -70,7 +77,7 @@ urlpatterns = [
     path('update_product/<str:pk>/', views.update_product, name="update_product"),
 
 
-    path('update_order/<str:pk>/', views.update_order, name="update_order"),
+    path('update_order/<str:key>/', views.update_order, name="update_order"),
 
     path('customer_details/', views.customer_view_details, name="customer_details"),
 
@@ -97,9 +104,6 @@ urlpatterns = [
 
 
 
-     path("shipping_details/<int:pk>/", views.shipping_details,
-         name="shipping_details"),
-
     path("cust_details/<int:pk>/", views.detail_cust,
          name="cust_details"),
 
@@ -116,6 +120,8 @@ urlpatterns = [
          name="admindetail"),
 
      path("newsletter-signup/",views.newsletter_signup, name="newsletter"),
+
+     path('aboutus/',views.about_us, name="about")
 
         #Excel Stuff
     

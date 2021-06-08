@@ -1,5 +1,6 @@
 {% extends 'store/blog_base.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 {% comment %} 
     <!-- Page Preloder -->
@@ -221,7 +222,7 @@
                                             <i class="icon_heart_alt"></i>
                                         </div>
                                         <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                            <li class="w-icon active"><a href="{% url 'cart' %}"><i class="icon_bag_alt"></i></a></li>
                                            <!-- <li class="quick-view"><a href="{% url 'detail' slug=product.slug %}">+ Quick View</a></li>-->
                                             <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                         </ul>                                            
@@ -231,14 +232,22 @@
                                         <div class="catagory-name">Deal</div>
                                             <h5>{{product.name}}</h5>
                                             <br>
-                                            <button data-product ={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>
+                                            <p>{{product.short_description}}</p>
+
+                                            <button data-product ={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart" style="margin-bottom:10px;"> Add to Cart</button>
+                                            {% if user.is_authenticated%}
+                                                {% comment %} {% if user.id == product.created_by.id%} {% endcomment %}
+                                                <a class="btn btn-outline-success" style="border-radius:10px; margin-bottom:10px; margin-top:10px;" href="{% url 'update_product' product.id %}">Edit</a>
+                                                    <a class="btn btn-outline-danger" style="border-radius:10px;"href = "{% url 'delete_product' product.id %}"> Delete </a>
+                                                {% comment %} {% endif %} {% endcomment %}
+                                            {% endif %}
 
                                         <a href="#">
                                             <h5>{{products.name}}</h5>
                                         </a>
                                         <div class="product-price">
-                                            ${{product.price}}
-                                            <span>$35.00</span>
+                                            Ksh {{product.price |intcomma}}
+                                            <span>Ksh35.00</span>
                                         </div>
                                     </div>
 

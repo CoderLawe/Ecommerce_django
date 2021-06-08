@@ -23,17 +23,17 @@
 
         // The data for our dataset
         data: {
-            labels: [{% for item in articles %}
-           '{{item.short_title}}',
+            labels: [{% for item in products %}
+           '{{item.name}}',
             {% endfor %}
             
             ],
             datasets: [{
-                label: 'hits per article',
+                label: 'Views per product',
 
                 backgroundColor: 'rgb(255, 114, 33)',
                 borderColor: 'rgb(0, 0, 0)',
-                data: [{% for item in articles %}{{item.page_views}},{% endfor %}]
+                data: [{% for item in products %}{{item.page_views}},{% endfor %}]
             }]
         },
 

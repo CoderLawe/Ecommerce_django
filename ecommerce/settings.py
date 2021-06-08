@@ -41,8 +41,12 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'widget_tweaks',
     'ckeditor',
+    'django.contrib.humanize',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
+SITE_ID=1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',

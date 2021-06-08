@@ -1,5 +1,5 @@
 from django import forms
-from store.models import CarouselData, Product, Order, Category, OrderItem, Newsletter, Comments
+from store.models import CarouselData, Product, Order, Category, OrderItem, Newsletter, Comments, Order_customer, ProductImage
 
 
 class CarouselForm(forms.ModelForm):
@@ -26,7 +26,7 @@ class CreateProduct(forms.ModelForm):
     class Meta:
         model = Product
 
-        fields = ['name', 'price','category', 'digital', 'image' , 'description', 'slug',"featured"]
+        fields = ['name', 'price','category', 'digital', 'image' , 'description', 'slug',"featured",'created_by']
 
         widgets = {
             'name':forms.TextInput(attrs={'class':'form-group row'}),
@@ -71,6 +71,17 @@ class NewsletterForm(forms.ModelForm):
         fields = '__all__'
 
         exclude = ['date']
+class OrderCustomer(forms.ModelForm):
+    class Meta:
+        model = Order_customer
+        fields = '__all__'
+
+class ProductImageForm(forms.ModelForm):
+    class Meta:
+        model  = ProductImage
+        fields = '__all__'
+
+        exclude = ['product']
 
 
 

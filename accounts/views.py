@@ -12,11 +12,8 @@ def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            instance = form.save(commit=False)
-            instance.name = request.user
-            instance.customer = request.user
-            instance.save()
-            return redirect('store')
+            
+            return redirect('accounts:login')
 
     else:
         form = UserCreationForm()

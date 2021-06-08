@@ -1,0 +1,26 @@
+{% extends 'adminpages/admin_base.html'%}
+{% load widget_tweaks %}
+
+{% block content %}
+<hr>
+<hr>
+<hr>
+{% block orders %}
+    {% for order in orders %}
+   <div class="row">
+	<div class="col-md-6">
+		<div class='card card-title'>
+		<p> Products:{{order.get_cart_item}}</p>
+        <p> Customer:{{order.customer}}</p>
+        <div class="card card-body">
+            {{order.date_ordered}}
+        </div>
+		</div>
+        <div class="col-md-6">
+        Details:
+
+        </div>
+	</div>
+    {% endfor %}
+	{% endblock orders %}
+{% endblock content %}

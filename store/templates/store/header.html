@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 {% block header %}
 <!-- Header Section Begin -->
     <header class="header-section">
@@ -47,7 +48,7 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 ">
                         <div class="logo">
                             <a href="{% url 'store' %}">
-                            <img src="{% static 'images/lynam.jpeg'%}" style="height:100px; width:auto; border-radius:50%;">
+                            <img src="{% static 'images/lynam_black.jpg'%}" style="height:100px; width:auto; border-radius:50%;">
                             </a>
                         </div>
                     </div>
@@ -93,7 +94,7 @@
                                                     <td class="si-pic"><img src="{{item.product.imageURL}}" alt=""></td>
                                                     <td class="si-text">
                                                         <div class="product-selected">
-                                                            <p>${{item.product.price}} x{{item.quantity}}</p>
+                                                            <p>Ksh{{item.product.price |intcomma}} x{{item.quantity}}</p>
                                                             <h6>{{item.product.name}}</h6>
                                                         </div>
                                                     </td>
@@ -107,7 +108,7 @@
                                     </div>
                                     <div class="select-total">
                                         <span>total:</span>
-                                        <h5>${{order.get_cart_total}}</h5>
+                                        <h5>${{order.get_cart_total | intcomma}}</h5>
                                     </div>
                                     <div class="select-button">
                                         <a href="{% url 'cart' %}" class="primary-btn view-card">CART PAGE</a>
@@ -115,7 +116,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="cart-price">${{order.get_cart_total}}</li>
+                            <li class="cart-price">Ksh {{order.get_cart_total |intcomma}}</li>
                         </ul>
                     </div>
                 </div>
@@ -149,16 +150,13 @@
                             {% endfor %}
                             </ul>
                         </li> {% endcomment %}
-                        <li class="active"><a href="{% url 'newsletter' %}">About</a></li>
+                        <li class="active"><a href="{% url 'about' %}">About</a></li>
                         <li><a href="{% url 'newsletter'%}">Contact</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="dropdown">
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                                <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                <li><a href="./check-out.html">Checkout</a></li>
-                                <li><a href="./faq.html">Faq</a></li>
-                                <li><a href="./register.html">Register</a></li>
-                                <li><a href="./login.html">Login</a></li>
+                                <li><a href="{% url 'cart' %}">Shopping Cart</a></li>
+                                <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                                <li><a href="{% url 'newsletter'%}">About us</a></li>
                             </ul>
                         </li>
                     </ul>

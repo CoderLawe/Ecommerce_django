@@ -20,7 +20,15 @@
 				
 				{% endfor %}
 
+				{% comment %} {% for field in form_one %}
+					{{field.label}}
+					{{field|add_class:'form-control'}}
+
+				{% endfor %} {% endcomment %}
+
+
 				<hr>
+
 				<input type="submit" value = "create" class="btn btn-info">
 			</form>
 		</div>

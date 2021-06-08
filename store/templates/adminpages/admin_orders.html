@@ -9,7 +9,7 @@
 
 <div class="row">
 
-<table class="table col-md-6 ml-4 border-right">
+<table class="table col-md-12 ml-4 border-right">
 
     <thead class="top-colour">
         <tr>
@@ -24,16 +24,16 @@
         </tr>
     </thead>
 
-    {% for order in qs %}
+    {% for order in orders %}
                     <tr>
 
                         <td>{{forloop.counter}}</td>
-                        <td>{{order.order.customer}}</td>
-                        <td>{{order.order.date_ordered}}</td>
-                        <td>{{order.product}}</td>
-                        <td>{{order.quantity}}</td>
-                        <td><a class="btn btn-sm btn-dark" href="{% url 'update_order' order.order.id %}">Update</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.order.id %}">Delete</a></td>
+                        <td>{{order.customer.name}}</td>
+                        <td>{{order.date_ordered}}</td>
+                        <td>{{order.get_cart_item}}</td>
+                        <td>{{order.get_cart_items}}</td>
+                        <td><a class="btn btn-sm btn-dark" href="{% url 'update_order' order.id %}">Update</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete</a></td>
 
 
 
@@ -44,5 +44,5 @@
 </table>
 
 </div>
-<a class="btn btn-sm btn-dark" href="{% url 'export' %}">Export to csv</a></td>
+{% comment %} <a class="btn btn-sm btn-dark" href="{% url 'export' %}">Export to csv</a></td> {% endcomment %}
 {% endblock content %}

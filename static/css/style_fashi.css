@@ -31,6 +31,9 @@
 /* Template default CSS
 /*----------------------------------------*/
 
+
+
+
 html,
 body {
 	height: 100%;
@@ -1320,6 +1323,21 @@ ol {
     color: white;
 }
 
+.aboot{
+	padding:50px;
+	text-align: center;
+	background-color: #484e5d;
+	color: white;
+
+}
+
+.aboot__h5{
+	font-size: 30px;
+	justify-content: center;
+	margin-right:20px;
+	padding:20px;
+}
+
 .row__posters{
     display: flex;
     overflow-y: hidden;
@@ -1364,7 +1382,17 @@ ol {
     padding: 20px;
 	border-radius: 10px;
 	margin-left: 10px;
+    transition: transform 450ms;
 	
+}
+.row__left{
+	transition: transform 450ms;
+
+}
+
+.row__left:hover{
+	transform: scale(1.08);
+
 }
 
 .map_image{

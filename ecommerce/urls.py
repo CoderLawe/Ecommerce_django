@@ -20,11 +20,18 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.views.static import serve
 from django.conf.urls import url
+from django.contrib.sitemaps.views import sitemap
+from store.sitemaps import ProductSiteMap
 
+
+sitemaps = {
+    'product':ProductSiteMap
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('store.urls')),
+    path('sitemap.xml',sitemap,{'sitemaps':sitemaps}),
     path(r'^tinymce/', include('tinymce.urls')),
 
     path('accounts/',include('accounts.urls')),

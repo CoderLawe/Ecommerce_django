@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 from tinymce.models import HTMLField
+from django.urls import reverse
+from django.db.models.signals import pre_save
+from store.slug_stuff import unique_slug_generator
 
 
 
@@ -13,21 +16,31 @@ from tinymce.models import HTMLField
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=50)
-    image = models.ImageField()
+    image = models.ImageField(blank=True ,null=True)
     mobile = models.CharField(max_length=20)
     bio = models.TextField(null=True,blank=True)
+
+    def __str__(self):
+        return self.full_name
 
 class Send_email(models.Model):
     email  = models.EmailField()
     password = models.CharField(max_length=200)
 
+class Order_customer(models.Model):
+    number = models.IntegerField()
+    message = models.TextField(blank=True, null=True)
+
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
+    number = models.IntegerField(blank=True, null=True)
+    message = models.TextField(blank=True, null=True)
+    
 
     def __str__(self):
-        return self.name
+        return str(self.user)
 
     @property
     def orders(self):
@@ -72,13 +85,22 @@ class Product(models.Model):
     image = models.ImageField(null=True, blank = True,upload_to = 'images/')
     description = models.TextField()
     detailed_description = models.TextField(null=True, blank="True")
-    slug = models.SlugField(default=None)
+    slug = models.SlugField(max_length=250, null=True, blank=True)
     featured  = models.BooleanField(default=False)
+    created_by = models.ForeignKey(Admin,on_delete= models.CASCADE,related_name='product_posts',default='')
     num_available = models.IntegerField(default=1)
+    page_views = models.IntegerField(default=0)
+
     #addedby = models.ForeignKey(User,on_delete= models.CASCADE,related_name='blog_posts',null = True)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("detail", args={self.slug})
+    
+
+
 
     @property
     def imageURL(self):
@@ -87,6 +109,7 @@ class Product(models.Model):
 
      
         return url
+
 
     def get_rating(self):
         
@@ -97,13 +120,25 @@ class Product(models.Model):
         else:
             return 0
 
+
+    def short_description(self):
+        return self.description[:50] +'...'
+
+
+# post_save.connect(update_customer,sender=User)
+
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product, related_name='images', on_delete = models.CASCADE)
-    image = models.ImageField(null=True, blank = True,upload_to = 'images/')
+    product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images/')
 
+    def __str__(self):
+        return self.product.name
 
+def slug_generator(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug=unique_slug_generator(instance)
     
-
+pre_save.connect(slug_generator, sender=Product)
 
 class ProductReview(models.Model):
     product = models.ForeignKey(Product, related_name='reviews', on_delete=models.SET_NULL, blank=True, null=True)
@@ -115,6 +150,12 @@ class ProductReview(models.Model):
 
    
 
+# class ProductImage(models.Model):
+#     post = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
+#     images = models.FileField(upload_to = 'images/')
+ 
+#     def __str__(self):
+#         return self.post.title
 
 class Article(models.Model):
     title = models.CharField(max_length=200)
@@ -181,6 +222,20 @@ class Order(models.Model):
         return shipping
 
     @property
+    def shipping_address(self):
+        shipping = self.shippingaddress_set.all()
+        details = [ detail.city for detail in shipping]
+        county = [area.county for area in shipping]
+        print('details',details)
+        return details
+    @property
+    def shipping_address_county(self):
+        shipping = self.shippingaddress_set.all()
+        county = [area.county for area in shipping]
+        print('county',county)
+        return county
+        
+    @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_total for item in orderitems])
@@ -212,8 +267,8 @@ class OrderItem(models.Model):
 
 #Maybe add customer field?
 
-    def __str__(self):
-        return self.product.name
+    # def __str__(self):
+    #     return self.quantity
 
     @property
     def get_total(self):
@@ -225,13 +280,11 @@ class OrderItem(models.Model):
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
-    address = models.CharField(max_length=200, null=True)
     city = models.CharField(max_length=200, null=True)
-    state = models.CharField(max_length=200, null=True)
-    zipcode = models.CharField(max_length=200, null=True)
+    county = models.CharField(max_length=200, null=True)
 
     def __str__(self):
-        return self.address
+        return self.city
 
 
 class CarouselData(models.Model):

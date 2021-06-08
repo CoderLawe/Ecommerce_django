@@ -1,5 +1,7 @@
 {% extends 'store/blog_base.html'%}
 {% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
 {% block content %}
 
 {% block header %}{% include 'store/header.html' %}{% endblock header %}
@@ -18,6 +20,17 @@
             <div class="form-field">
                 <input required class="form-control" type="email" name="email" placeholder="Email..">
             </div>
+         <div class="form-field">
+                <input required class="form-control" type="number" name="number" placeholder="Enter your phone number..">
+            </div>
+
+         <div class="form-field">
+                <input required class="form-control" type="textBox" name="message" placeholder="Message..">
+            </div>
+<hr>
+            	
+            
+
     </div>
 
     <div id="shipping-info">
@@ -25,23 +38,26 @@
         <h5<strong>Place your order here:</strong></h5>
         <p><strong> Please leave your contact details below, and we'll get back to you</strong></p>
         <hr>
-        <div class="form-field">
+        {% comment %} <div class="form-field">
             <input class="form-control" type="text" name="address" placeholder="Address..">
-        </div>
+        </div> {% endcomment %}
         <div class="form-field">
-            <input class="form-control" type="text" name="city" placeholder="City..">
+            <input class="form-control" type="text" name="city" placeholder="E.g Nairobi">
         </div>
+
         <div class="form-field">
-            <input class="form-control" type="text" name="state" placeholder="State..">
+            <input class="form-control" type="text" name="county" placeholder="e.g Kajiado">
         </div>
-        <div class="form-field">
-            <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-        </div>
-        <div class="form-field">
-            <input class="form-control" type="text" name="country" placeholder="Zip code..">
-        </div>
+       
         </div>
     <hr>
+            	{% comment %} {% csrf_token %}
+				{% for field in form_order %}
+					{{field.label}}
+					{{field|add_class:'form-control'}}
+				
+				{% endfor %}
+				<hr> {% endcomment %}
 
     <input id="form-button" class="btn btn-success btn-block" type="submit" value="continue">
 </form>
@@ -75,22 +91,23 @@
             <div class="cart-row">
 					<div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
 					<div style="flex:2"><p>{{item.product.name}}</p></div>
-					<div style="flex:1"><p>${{item.product.price}}</p></div>
+					<div style="flex:1"><p>Ksh{{item.product.price}}</p></div>
 					<div style="flex:1"><p>x{{item.quantity}}</p></div>
             </div>
             {% endfor %}
 
             <h5> Items: {{order.get_cart_items}} </h5>
-            <h5> Total: ${{order.get_cart_total |floatformat:2}}</h5>
+            <h5> Total: Ksh{{order.get_cart_total |intcomma }}</h5>
         </div>
     </div>
 
 
 </div>
-    <script src="https://www.paypal.com/sdk/js?client-id=Aa5fca3NUPQL615QHDVBiDlzZmNgme1V-RELi5VIXaoQqPOwZraF46PMb3pCoXaKJGM-DIDXMyfIjnpG&currency=USD&disable-funding=credit"></script>
-  <script>
-  var total = '{{order.get_cart_total}}'
+    {% comment %} <script src="https://www.paypal.com/sdk/js?client-id=Aa5fca3NUPQL615QHDVBiDlzZmNgme1V-RELi5VIXaoQqPOwZraF46PMb3pCoXaKJGM-DIDXMyfIjnpG&currency=USD&disable-funding=credit"></script> {% endcomment %}
+    
+  {% comment %} <script>
         // Render the PayPal button into #paypal-button-container
+       /*
         paypal.Buttons({
 
         style:{
@@ -99,7 +116,7 @@
 
 
             // Set up the transaction
-            {% comment %} createOrder: function(data, actions) {
+             createOrder: function(data, actions) {
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
@@ -116,113 +133,94 @@
                     submitFormData()
 
                 });
-            } {% endcomment %}
+            } 
 
 
         }).render('#paypal-button-container');
-    </script>
-
+        */
+    </script> {% endcomment %}
 
 
 <script type="text/javascript">
-    var shipping = '{{order.shipping}}'
+    var total = '{{order.get_cart_total}}'
 
-    if(shipping == 'False'){
-        document.getElementById('shipping-info').innerHTML = ""
+		var shipping = '{{order.shipping}}'
 
-    }
+		if (shipping == 'False'){
+		 	document.getElementById('shipping-info').innerHTML = ''
+		}
 
-    if(user != 'AnonymousUser'){
-        document.getElementById('user-info').innerHTML =""
+		if (user != 'AnonymousUser'){
+		 	document.getElementById('user-info').innerHTML = ''
+		 }
 
-        }
+		if (shipping == 'False' && user != 'AnonymousUser'){
+			//Hide entire form if user is logged in and shipping is false
+				document.getElementById('form-wrapper').classList.add("hidden");
+				//Show payment if logged in user wants to buy an item that does not require shipping
+			    document.getElementById('payment-info').classList.remove("hidden");
+		}
 
-     if(shipping == 'False' && user != 'AnonymousUser'){
-
-        document.getElementById('form-wrapper').classList.add("hidden")
-
-        document.getElementById('payment-info').classList.remove("hidden")
-
-     }
-
-
-
-
-
-
-    if(shipping == 'False' && user != 'AnonymousUser'){
-    document.getElementById(form-wrapper).classList.add('hidden');
-
-    document.getElementById('payment-info').classList.remove('hidden');
+		var form = document.getElementById('form')
+		form.addEventListener('submit', function(e){
+	    	e.preventDefault()
+	    	console.log('Form Submitted...')
+	    	document.getElementById('form-button').classList.add("hidden");
+	    	document.getElementById('payment-info').classList.remove("hidden");
+	    })
 
 
-    }
+	    document.getElementById('make-payment').addEventListener('click', function(e){
+	    	submitFormData()
+	    })
 
 
+	    function submitFormData(){
+	    	console.log('Payment button clicked')
 
-    var form = document.getElementById('form')
+	    	var userFormData = {
+				'name':null,
+				'email':null,
+				'total':total,
+                'message':null,
+                'number':null,
+			}
 
-    form.addEventListener('submit',function(e){
-    e.preventDefault()
-    console.log('Form submitted...')
-    document.getElementById('form-button').classList.add('hidden')
-    document.getElementById('payment-info').classList.remove('hidden')
+			var shippingInfo = {
+				'city':null,
+				'county':null,
+			}
 
-    })
+			if (shipping != 'False'){
+	    		shippingInfo.city = form.city.value
+		    	shippingInfo.county = form.county.value
+		    	
+	    	}
 
-    document.getElementById('make-payment').addEventListener('click',function(e){
-        submitFormData()
-    })
+	    	if (user == 'AnonymousUser'){
+	    		userFormData.name = form.name.value
+	    		userFormData.email = form.email.value
+                userFormData.number = form.number.value
+                userFormData.message = form.message.value
+	    	}
 
-    
+	    	console.log('Shipping Info:', shippingInfo)
+	    	console.log('User Info:', userFormData)
 
-
-    function submitFormData(){
-
-        console.log('Payment button clicked')
-
-        var userFormData = {
-        'name':null,
-        'email':null,
-        'total':total,
-        }
-
-         var shippingInfo = {
-        'address':null,
-        'city':null,
-        'state':null,
-        'zipcode':null
-        }
-
-        if(shipping != 'False'){
-          shippingInfo.address = form.address.value
-          shippingInfo.city = form.city.value
-          shippingInfo.state = form.state.value
-          shippingInfo.zipcode = form.zipcode.value
-
-
-
-        }
-
-        if(user == 'AnonymousUser'){
-          userFormData.name = form.name.value
-          userFormData.email = form.email.value
-          }
-
-var url = "/process_order/"
+	    	var url = "/process_order/"
 	    	fetch(url, {
 	    		method:'POST',
 	    		headers:{
 	    			'Content-Type':'application/json',
 	    			'X-CSRFToken':csrftoken,
-	    		},
+	    		}, 
 	    		body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
-
+	    		
 	    	})
 	    	.then((response) => response.json())
 	    	.then((data) => {
 				console.log('Success:', data);
-				alert('Transaction completed');
+				alert('Thank you! Your order has been placed. We will get back to you shortly');  
 
 				cart = {}
 				document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
@@ -231,6 +229,5 @@ var url = "/process_order/"
 
 				})
 	    }
-
-</script>
+	</script>
 {% endblock content %}

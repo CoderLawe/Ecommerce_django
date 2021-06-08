@@ -5,7 +5,10 @@
     <footer class="footer-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-md-6">
+                  <div class="map-wrapper  col-md-6">
+                <div class="google-map"><iframe frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCZI5F_k6S1k46ujh0SNrapM89f7mJxd30&amp;q=Imenti house kenya" allowfullscreen=""></iframe></div>
+            </div>
                     <div class="footer-left">
                         <div class="footer-logo">
                             <a href="#"><img src="img/footer-logo.png" alt=""></a>
@@ -22,33 +25,28 @@
                             <a href="#"><i class="fa fa-pinterest"></i></a>
                         </div>
                     </div>
+
                 </div>
-                <div class="col-lg-2 offset-lg-1">
+            <div class="col-lg-2 ">
                     <div class="footer-widget">
                         <h5>Information</h5>
                         <ul>
                             <li><a href="#">About Us</a></li>
                             <li><a href="#">Checkout</a></li>
                             <li><a href="#">Contact</a></li>
-                            <li><a href="#">Serivius</a></li>
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'admin_home' %}">Admin</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'admin_home' %}">Admin</a></li>
+
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-2">
-                    <div class="footer-widget">
-                        <h5>My Account</h5>
-                        <ul>
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Shopping Cart</a></li>
-                            <li><a href="#">Shop</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="newslatter-item">
-                        <h5>Join Our Newsletter Now</h5>
-                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                <div class="col-md-4">
+                    <div class="newsletter-item">
+                        <h5 class="text-white">Have any questions?</h5>
+                        <p class="text-white">Feel free to contact us below. We look forward to hearing from you</p>
             <div class="newsletter__formcontainer">
                 <form action="{% url 'newsletter' %}" method="POST">
                     {% csrf_token %}

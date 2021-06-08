@@ -1,7 +1,7 @@
 {% extends 'store/blog_base.html' %}
 
 {% load static %}
-
+{% load humanize %}
 {% block content %}
 {% block header %}{% include 'store/header.html' %}{% endblock header %}
 
@@ -58,37 +58,47 @@
                 </div>
                 <div class="col-lg-9 order-1 order-lg-2">
                     
-                    <div class="product-list">
+                    <div class="the_products">
+                <div class="product-list ">
                         <div class="row">
                         {% for product in products %}
                             <div class="col-6 col-md-4 ">
                                 <div class="product-item">
+                                
                                     <div class="pi-pic">
                                     <a href="{% url 'detail' slug=product.slug %}">
                                         <img src="{{product.image.url}}" alt="">
+                                    </a>
                                         <div class="sale pp-sale">Sale</div>
                                         <div class="icon">
                                             <i class="icon_heart_alt"></i>
                                         </div>
                                         <ul>
                                             <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="{% url 'detail' slug=product.slug %}">+ Quick View</a></li>
+                                           <!-- <li class="quick-view"><a href="{% url 'detail' slug=product.slug %}">+ Quick View</a></li>-->
                                             <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
+                                        </ul>                                            
+
                                     </div>
                                     <div class="pi-text">
-                                        <div class="catagory-name">Towel</div>
-                                        <a href="#">
+                                        <div class="catagory-name">Deal</div>
                                             <h5>{{product.name}}</h5>
-                                        </a>
+                                            <br>
+                                            <p>{{product.short_description}}</p>
+                                            <button data-product ={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"> Add to Cart</button>
+                                             {% if user.is_authenticated%}
+                                                {% if user.id == product.created_by.id%}
+                                                <a class="btn btn-outline-success" style="border-radius:10px; margin-bottom:10px; margin-top:10px;" href="{% url 'update_product' product.id %}">Edit</a>
+                                                    <a class="btn btn-outline-danger" style="border-radius:10px;"href = "{% url 'delete_product' product.id %}"> Delete </a>
+                                                {% endif %}
+                                            {% endif %}
 
+                                        <a href="#">
+                                            <h5>{{products.name}}</h5>
+                                        </a>
                                         <div class="product-price">
-                                            ${{product.price}}
-                                            <span>$35.00</span>
+                                           Ksh {{product.price |intcomma}}
                                         </div>
-                                <div class="the-button" style="padding:10px;">
-                                    <button data-product ={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart" > Add to Cart</button>
-                                </div>
                                     </div>
 
                                 </div>
@@ -96,6 +106,8 @@
                         {% endfor %}
                         </div>
                     </div>
+
+            </div>
                     {% comment %} <div class="loading-more">
                         <i class="icon_loading"></i>
                         <a href="#">
