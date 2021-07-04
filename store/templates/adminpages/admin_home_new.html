@@ -41,8 +41,8 @@
     {% for country in data %}
 		{{country}}
 	{% endfor %}
-		<h5>NEWSLETTER SIGNEES </h5> 
-		<a class="btn btn-sm btn-dark" href="{% url 'export'%}">Export to  Spreadsheet</a>
+		<h5>ALL PENDING ORDERS </h5> 
+		{% comment %} <a class="btn btn-sm btn-dark" href="{% url 'export'%}">Export to  Spreadsheet</a> {% endcomment %}
 
 		
 		<div class="card card-body">
@@ -51,9 +51,16 @@
 				<tr class = "bg-dark text-white">
 					<!--<th>Products</th>-->
 					<th>  No.</th>
+<<<<<<< HEAD
 					<th> Product</th>
 					<th> Date Ordered</th>
 					<th> Customer </th>
+=======
+					<th> Product(s)</th>
+					<th> Date Ordered</th>
+					<th> Customer </th>
+					<th> Status </th>
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
 					<th>Update</th>
 					<th>Remove</th>
 				</tr>
@@ -63,7 +70,13 @@
 						<td>{{forloop.counter}}</td>
 						<td>{{order.get_cart_item}}</td>
 						<td>{{order.date_ordered}}</td>
+<<<<<<< HEAD
 					   <td>{{order.customer}}</td>
+=======
+					   <td>{{order.customer.name}}</td>
+						<td>{{order.status}}</td>
+
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
 
 					{% endblock order %}
 						<td><a class="btn btn-sm btn-warning" href="{% url 'update_order' order.id%}">Update</a></td>

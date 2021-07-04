@@ -1,7 +1,7 @@
 {% extends 'store/blog_base.html' %}
 
 {% load static %}
-
+{% load humanize %}
 {% block content %}
 {% block header %}{% include 'store/header.html' %}{% endblock header %}
 
@@ -97,8 +97,7 @@
                                             <h5>{{products.name}}</h5>
                                         </a>
                                         <div class="product-price">
-                                            ${{product.price}}
-                                            <span>$35.00</span>
+                                           Ksh {{product.price |intcomma}}
                                         </div>
                                     </div>
 

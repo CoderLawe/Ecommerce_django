@@ -1,0 +1,132 @@
+{% extends 'store/blog_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+{% block nav %}{% include 'store/header.html' %}{% endblock nav%}
+<style>
+.parallax {
+  /* The image used */
+  background-image: url('/static/images/background1.jpg');
+
+  /* Set a specific height */
+  height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+<div class="parallax" style="padding:50px;
+	text-align: center;
+	background-image:url('/static/images/black_background.jpeg/');
+	color: white">
+    <h1 class="text-white">About Us Page</h1>
+    <p class="text-white">We are dealers in Phones, Laptops and Accesories.</p>
+    <p class="text-white">We are currently located at the Midway mall, Opposite Imenti House on the first floor, Shop U1.</p>
+    </div>
+
+        <div class="row parallax">
+            <div class="col-6 col-md-4 ">
+                <div class="product-item">
+                
+                    <div class="pi-pic">
+                    <a href="#">
+                        <img src="{% static 'images/avatar.jpeg'%}" alt="">
+                    </a>                                        
+
+                    </div>
+                    <div class="pi-text">
+                        <div class="catagory-name">Team Member</div>
+                            <h5>Name</h5>
+                            <br>
+                            <p>Short description</p>
+                                
+
+                        <a href="#">
+                            <h5>Name again?</h5>
+                        </a>
+                        
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 ">
+                <div class="product-item">
+                
+                    <div class="pi-pic">
+                    <a href="#">
+                        <img src="{% static 'images/avatar.jpeg'%}" alt="">
+                    </a>                                        
+
+                    </div>
+                    <div class="pi-text">
+                        <div class="catagory-name">Team Member</div>
+                            <h5>Name</h5>
+                            <br>
+                            <p>Short description</p>
+                                
+
+                        <a href="#">
+                            <h5>Name again?</h5>
+                        </a>
+                        
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 ">
+                <div class="product-item">
+                
+                    <div class="pi-pic">
+                    <a href="#">
+                        <img src="{% static 'images/avatar.jpeg'%}" alt="">
+                    </a>                                        
+
+                    </div>
+                    <div class="pi-text">
+                        <div class="catagory-name">Team Member</div>
+                            <h5>Name</h5>
+                            <br>
+                            <p>Short description</p>
+                                
+
+                        <a href="#">
+                            <h5>Name again?</h5>
+                        </a>
+                        
+                    </div>
+
+                </div>
+            </div>
+
+                    <hr>
+                        <h5 class="aboot__h5" style="font-size: 30px;
+        justify-content: center;
+        margin-right:20px;
+        padding:20px;"><strong> Feel free to send us a message below</strong></h5>
+                    <hr>
+                <div class="col-md-7" style="margin-right:20px;">
+                    <div class="card card-body"  style="margin-right:30px; background-image=url('/static/images/black_background.jpeg/'); justify-content:center;">
+
+                        <form action="{% url 'newsletter' %}" method="POST">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                {{field.label}}
+                                {{field|add_class:'form-control'}}
+                            
+                            {% endfor %}
+                            <hr>
+                            <input type="submit" class="btn btn-info">
+                        </form>
+                </div>
+        </div>
+                </div>
+
+    </div>
+
+{% endblock content%}
+{% block footer %}{% include 'store/footer_block.html' %}{% endblock footer %}

@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 {% load widget_tweaks %}
+{% load humanize %}
 {% block header %}{% include 'store/header.html' %}{% endblock header %}
 <style>
 .parallax {
@@ -60,7 +61,7 @@
                                     <div class="pt active" data-imgbigurl="{{products.image.url}}"><img
                                             src="{{products.image.url}}" alt=""></div>
 
-                                    {% for i in products.image_set.all%}
+                                    {% for i in photos%}
                                     <div class="pt" data-imgbigurl="{{i.image.url}}"><img
                                             src="{{i.image.url}}" alt=""></div>
                                     {% endfor %}
@@ -86,10 +87,11 @@
                                     <i class="fa fa-star"></i>
                                 {% endfor %}
                                     <span>({{products.get_rating |floatformat:1}})</span>
+                                     views{{views}}
                                 </div>
                                 <div class="pd-desc">
                                     <p> {{products.description}}</p>
-                                    <h4>Kshs{{products.price}} <span>60,000</span></h4>
+                                    <h4>Kshs{{products.price |intcomma}} <span>60,000</span></h4>
                                 </div>
                                 
                                 

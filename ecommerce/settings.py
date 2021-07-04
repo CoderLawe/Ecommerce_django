@@ -42,8 +42,14 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'ckeditor',
     'django.contrib.humanize',
+<<<<<<< HEAD
+=======
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
 ]
 
+SITE_ID=1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',

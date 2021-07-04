@@ -23,9 +23,22 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline]
     actions = [admin_order_shipped]
 
+class ProductImageAdmin(admin.StackedInline):
+    model = ProductImage
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    inlines = [ProductImageAdmin]
+
+    class Meta:
+       model = Product
+
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    pass
+
 
 admin.site.register(Customer)
-admin.site.register(Product)
+# admin.site.register(Product)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem)
 admin.site.register(ShippingAddress)
@@ -39,7 +52,8 @@ admin.site.register(Comments)
 admin.site.register(Timer)
 admin.site.register(ProductReview)
 admin.site.register(SiteProperties)
-admin.site.register(ProductImage)
+# admin.site.register(ProductImage)
+admin.site.register(Order_customer)
 
 
 

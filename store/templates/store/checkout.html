@@ -1,6 +1,10 @@
 {% extends 'store/blog_base.html'%}
 {% load static %}
 {% load humanize %}
+<<<<<<< HEAD
+=======
+{% load widget_tweaks %}
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
 {% block content %}
 
 {% block header %}{% include 'store/header.html' %}{% endblock header %}
@@ -19,6 +23,19 @@
             <div class="form-field">
                 <input required class="form-control" type="email" name="email" placeholder="Email..">
             </div>
+<<<<<<< HEAD
+=======
+         <div class="form-field">
+                <input required class="form-control" type="number" name="number" placeholder="Enter your phone number..">
+            </div>
+
+         <div class="form-field">
+                <input required class="form-control" type="textBox" name="message" placeholder="Message..">
+            </div>
+<hr>
+            	
+            
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
 
     </div>
 
@@ -30,6 +47,7 @@
         {% comment %} <div class="form-field">
             <input class="form-control" type="text" name="address" placeholder="Address..">
         </div> {% endcomment %}
+<<<<<<< HEAD
         <div class="form-field">
             <input class="form-control" type="text" name="address" placeholder="address..">
         </div>
@@ -42,12 +60,25 @@
         </div>
         <div class="form-field">
             <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-        </div>
+=======
         <div class="form-field">
-            <input class="form-control" type="text" name="country" placeholder="Zip code..">
+            <input class="form-control" type="text" name="city" placeholder="E.g Nairobi">
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
         </div>
+
+        <div class="form-field">
+            <input class="form-control" type="text" name="county" placeholder="e.g Kajiado">
+        </div>
+       
         </div>
     <hr>
+            	{% comment %} {% csrf_token %}
+				{% for field in form_order %}
+					{{field.label}}
+					{{field|add_class:'form-control'}}
+				
+				{% endfor %}
+				<hr> {% endcomment %}
 
     <input id="form-button" class="btn btn-success btn-block" type="submit" value="continue">
 </form>
@@ -93,10 +124,11 @@
 
 
 </div>
-    <script src="https://www.paypal.com/sdk/js?client-id=Aa5fca3NUPQL615QHDVBiDlzZmNgme1V-RELi5VIXaoQqPOwZraF46PMb3pCoXaKJGM-DIDXMyfIjnpG&currency=USD&disable-funding=credit"></script>
-  <script>
-  var total = '{{order.get_cart_total}}'
+    {% comment %} <script src="https://www.paypal.com/sdk/js?client-id=Aa5fca3NUPQL615QHDVBiDlzZmNgme1V-RELi5VIXaoQqPOwZraF46PMb3pCoXaKJGM-DIDXMyfIjnpG&currency=USD&disable-funding=credit"></script> {% endcomment %}
+    
+  {% comment %} <script>
         // Render the PayPal button into #paypal-button-container
+       /*
         paypal.Buttons({
 
         style:{
@@ -105,7 +137,7 @@
 
 
             // Set up the transaction
-            {% comment %} createOrder: function(data, actions) {
+             createOrder: function(data, actions) {
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
@@ -122,14 +154,19 @@
                     submitFormData()
 
                 });
-            } {% endcomment %}
+            } 
 
 
         }).render('#paypal-button-container');
-    </script>
-
+        */
+    </script> {% endcomment %}
 
 <script type="text/javascript">
+<<<<<<< HEAD
+=======
+    var total = '{{order.get_cart_total}}'
+
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
 		var shipping = '{{order.shipping}}'
 
 		if (shipping == 'False'){
@@ -168,6 +205,7 @@
 				'name':null,
 				'email':null,
 				'total':total,
+<<<<<<< HEAD
 			}
 
 			var shippingInfo = {
@@ -182,11 +220,31 @@
 		    	shippingInfo.city = form.city.value
 		    	shippingInfo.state = form.state.value
 		    	shippingInfo.zipcode = form.zipcode.value
+=======
+                'message':null,
+                'number':null,
+			}
+
+			var shippingInfo = {
+				'city':null,
+				'county':null,
+			}
+
+			if (shipping != 'False'){
+	    		shippingInfo.city = form.city.value
+		    	shippingInfo.county = form.county.value
+		    	
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
 	    	}
 
 	    	if (user == 'AnonymousUser'){
 	    		userFormData.name = form.name.value
 	    		userFormData.email = form.email.value
+<<<<<<< HEAD
+=======
+                userFormData.number = form.number.value
+                userFormData.message = form.message.value
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
 	    	}
 
 	    	console.log('Shipping Info:', shippingInfo)

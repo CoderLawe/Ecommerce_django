@@ -2,6 +2,8 @@
 
 {% block content %}
 {% load widget_tweaks %}
+{% load humanize %}
+
 
 
 <hr>
@@ -9,13 +11,13 @@
 <hr>
 <div class="row">
 	<div class="col-md-6">
+
 		<div class="card card-body">
 		<div class='card card-title'>
-		<p> Products </p>
-		{% for qs in qs %}
-			<p> {{qs.product}}</p>
-		{% endfor %}
+		<h5> Product(s) {{order.get_cart_item}} <strong>Ksh{{order.get_cart_total |intcomma}}</strong></h5>
+		<h5> Ordered on..{{order.date_ordered}}</h5>
 		</div>
+
 			<form action="" method="POST">
             	{% csrf_token %}
 				{% for field in form %}
@@ -23,12 +25,12 @@
 					{{field|add_class:'form-control'}}
 				
 				{% endfor %}
+				
 				<hr>
 				<input type="submit" class="btn btn-info">
 			</form>
 		</div>
 	</div>
-
 		<br>
 	<div class="col-md-6">
 		<div class="card card-body">
@@ -36,20 +38,26 @@
 		<tr>
 		<th>Customer </th>
 		<th> Email </th>
+		<th>Phone number</th>
 		<th>City</th>
-		<th>State</th>
-		<th>Zipcode</th>
+		<th>County</th>
+	
 		</tr>
 
 		<tr>
-			<td>{{shipping.customer}}</td>
-			<td>{{shipping.customer.email}}</td>
-			<td> {{shipping.city}}</td>
-			<td> {{shipping.state}}</td>
-			<td>{{shipping.zipcode}}</td>
+			<td>{{order.customer.name}}</td>
+			<td>{{order.customer.email}}</td>
+			<td> {{order.customer.number}}</td>
+			<td>{{order.shipping_address}}</td>
+			<td>{{order.shipping_address_county}}</td>
+
+			<td></td>
+	
 
 		</tr>
 		</table>
+		<hr>
+		<p><strong>Message by customer:</strong> {{order.customer.message}}</p>
 		</div>
 	</div>
 

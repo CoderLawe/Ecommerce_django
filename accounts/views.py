@@ -12,11 +12,16 @@ def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
+<<<<<<< HEAD
             instance = form.save(commit=False)
             instance.name = request.user
             instance.customer = request.user
             instance.save()
             return redirect('home')
+=======
+            
+            return redirect('accounts:login')
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
 
     else:
         form = UserCreationForm()

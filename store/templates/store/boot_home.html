@@ -239,10 +239,17 @@
 
                                             <button data-product ={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart" style="margin-bottom:10px;"> Add to Cart</button>
                                             {% if user.is_authenticated%}
+<<<<<<< HEAD
                                                 {% if user.id == product.created_by.id%}
                                                 <a class="btn btn-outline-success" style="border-radius:10px; margin-bottom:10px; margin-top:10px;" href="{% url 'update_product' product.id %}">Edit</a>
                                                     <a class="btn btn-outline-danger" style="border-radius:10px;"href = "{% url 'delete_product' product.id %}"> Delete </a>
                                                 {% endif %}
+=======
+                                                {% comment %} {% if user.id == product.created_by.id%} {% endcomment %}
+                                                <a class="btn btn-outline-success" style="border-radius:10px; margin-bottom:10px; margin-top:10px;" href="{% url 'update_product' product.id %}">Edit</a>
+                                                    <a class="btn btn-outline-danger" style="border-radius:10px;"href = "{% url 'delete_product' product.id %}"> Delete </a>
+                                                {% comment %} {% endif %} {% endcomment %}
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
                                             {% endif %}
 
                                         <a href="#">

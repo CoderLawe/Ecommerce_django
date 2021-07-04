@@ -16,19 +16,17 @@
         <tr>
             <th>Number</th>
             <th>Name</th>
-            <th>Products </th>
-            <th> Quantity</th>
-            <th> Date Joined</th>
+            <th>Email </th>
+            <th> Phone number</th>
         </tr>
     </thead>
 
-    {% for customer in orderItem %}
+    {% for customer in customers %}
 <tr>
                         <td>{{forloop.counter}}</td>
-						<td><a href="{% url 'cust_details' customer.pk %}">{{customer.order.customer}}</a></td>
-                        <td>{{customer.order.customer.email}}</td>
-                        <td> {{customer.quantity}}</td>
-                        <td>{{customer.shipping}}</td>
+                        <td>{{customer.name}}</td>
+                        <td> {{customer.email}}</td>
+                        <td>{{customer.number}}</td>
 
 
                     </tr>

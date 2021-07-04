@@ -31,6 +31,9 @@
 /* Template default CSS
 /*----------------------------------------*/
 
+
+
+
 html,
 body {
 	height: 100%;
@@ -1318,6 +1321,21 @@ ol {
 .app__row{
 	margin-left: 20px;
     color: white;
+}
+
+.aboot{
+	padding:50px;
+	text-align: center;
+	background-color: #484e5d;
+	color: white;
+
+}
+
+.aboot__h5{
+	font-size: 30px;
+	justify-content: center;
+	margin-right:20px;
+	padding:20px;
 }
 
 .row__posters{

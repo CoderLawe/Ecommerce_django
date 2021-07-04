@@ -1,10 +1,13 @@
 from django.views.generic import View, TemplateView, CreateView, FormView, DetailView, ListView
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 from json import dumps
+from django.forms import modelformset_factory
+from django.contrib import messages
+
 from django_tables2.export.export import TableExport
 
 
@@ -132,8 +135,20 @@ def checkout(request):
     order = data['order']
     items = data['items']
     category = Category.objects.all()
+    if request.method == "POST": 
+            form_order = OrderCustomer(request.POST)
+        
+            if form_order.is_valid():
+                instance = form_order.save(commit = False)
+                instance.save()
+                return redirect('list')
+            
+                
+    else: 
+        form_order = OrderCustomer()
 
-    context = {'items': items, 'order': order, 'cartItems': cartItems,'category':category} 
+
+    context = {'items': items, 'order': order, 'cartItems': cartItems,'category':category,'form_order':form_order,} 
     return render(request, 'store/checkout.html', context)
 
 
@@ -247,10 +262,8 @@ def process_order(request):
         ShippingAddress.objects.create(
             customer=customer,
             order=order,
-            address=data['shipping']['address'],
             city=data['shipping']['city'],
-            state=data['shipping']['state'],
-            zipcode=data['shipping']['zipcode'],
+            county=data['shipping']['county'],
         )
 
 
@@ -276,6 +289,12 @@ def product_detail(request, slug):
     order = data['order']
     items = data['items']
     products = get_object_or_404(Product, slug=slug)
+
+    products.page_views = products.page_views+1
+    new_views = products.page_views
+    photos = ProductImage.objects.filter(product=products)
+    print('Les views',new_views-1)
+    products.save()
 
     reviews = ProductReview.objects.all()
     product = Product.objects.all()[:4]
@@ -303,20 +322,63 @@ def product_detail(request, slug):
 
 
     #products = Product.objects.get(slug=slug)
-    return render(request, 'store/product.html', {'products': products, 'cartItems': cartItems,'order':order,'items':items,'product':product,'products':products,'reviews':reviews, 'stars':stars,'form':form})
+    return render(request, 'store/product.html', {'products': products, 'cartItems': cartItems,'order':order,
+                                                    'items':items,'product':product,'products':products,
+                                                    'reviews':reviews, 'stars':stars,'form':form,'views':products.page_views,
+                                                    'photos':photos})
 
 
-def product_create(request):
-    form = CreateProduct()
-    if request.method == 'POST':
-        form = CreateProduct(request.POST)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            # instance.author = request.user
-            instance.save()
-            return redirect('store')
+# def product_create(request):
+#     form = CreateProduct()
+#     if request.method == 'POST':
+#         form = CreateProduct(request.POST)
+#         if form.is_valid():
+#             instance = form.save(commit=False)
+#             # instance.author = request.user
+#             instance.save()
+#             return redirect('store')
 
-    return render(request, 'adminpages/product_create.html', {'form': form})
+
+#     return render(request, 'adminpages/product_create.html', {'form': form})
+
+
+
+# Important might use later
+# def post(request):
+ 
+#     ImageFormSet = modelformset_factory(ProductImage,
+#                                         form=ImageForm, extra=3)
+#     #'extra' means the number of photos that you can upload   ^
+#     if request.method == 'POST':
+    
+#         postForm = CreateProduct(request.POST)
+#         formset = ImageFormSet(request.POST, request.FILES,
+#                                queryset=ProductImage.objects.none())
+    
+    
+#         if postForm.is_valid() and formset.is_valid():
+#             post_form = postForm.save(commit=False)
+#             post_form.user = request.user
+#             post_form.save()
+    
+#             for form in formset.cleaned_data:
+#                 #this helps to not crash if the user   
+#                 #do not upload all the photos
+#                 if form:
+#                     image = form['image']
+#                     photo = ProductImage(post=post_form, image=image)
+#                     photo.save()
+#             # use django messages framework
+#             messages.success(request,
+#                              "Yeeew, check it out on the home page!")
+#             return HttpResponseRedirect("/")
+#         else:
+#             print(postForm.errors, formset.errors)
+#     else:
+#         postForm = CreateProduct()
+#         formset = ImageFormSet(queryset=ProductImage.objects.none())
+#     return render(request, 'adminpages/product_create.html',
+#                   {'postForm': postForm, 'formset': formset})
 
 """
 def create_products(request):
@@ -359,9 +421,10 @@ def update_product(request, pk):
 def update_order(request, key):
     order = Order.objects.get(id=key)
     form = OrderForm(instance=order)
-    shipping  = ShippingAddress.objects.get(customer=order.customer)
+    # shipping  = ShippingAddress.objects.get(customer=order.customer)
     qs = OrderItem.objects.filter(order=order)
-    
+    shipping = ShippingAddress.objects.all()
+    print('shipping',shipping)
 
     if request.method == 'POST':
         form = OrderForm(request.POST, instance=order)
@@ -369,7 +432,7 @@ def update_order(request, key):
             form.save()
             return redirect('admin_home')
 
-    return render(request, 'adminpages/order_create.html', {'form': form,'order':order,'shipping':shipping, 'qs':qs})
+    return render(request, 'adminpages/order_create.html', {'form': form,'order':order, 'qs':qs, })
 
 
 def shipping_details(request, pk):
@@ -529,7 +592,12 @@ class AdminHomeView(AdminRequiredMixin, TemplateView):
         context = {
             "all_orders": all_orders, 'total_orders': total_orders, 
             'delivered': delivered, "pending": pending,"pending_orders":pending_orders,
+<<<<<<< HEAD
             'qs':qs,'products':products,'filter':orderFilter,'orders':orders, 'items': items, 'order': order, 'cartItems': cartItems,'newsletter':newsletter,'articles':articles
+=======
+            'qs':qs,'products':products,'filter':orderFilter,'orders':orders, 'items': items, 'order': order, 
+            'cartItems': cartItems,'newsletter':newsletter,'articles':articles,
+>>>>>>> 27f118911aca704bb87409323351786b3ca256ff
 
             
         }
@@ -557,8 +625,6 @@ class admin_ordering(AdminRequiredMixin, TemplateView):
             
         }
         return render(request, "adminpages/admin_detail.html", context)
-
-
 
 
 class view_customer(AdminRequiredMixin, View):
@@ -619,12 +685,36 @@ def detail_cust(request,pk):
     
     return render(request, 'adminpages/cust_details.html', {'orderitems':orderitems,'customer':customer,'shipping':shipping,'orders':orders,'cartItems':cartItems,'items':items,'filter':OrderFilter})
 
+def new_order(request,pk):
+
+    order_instance = Order.objects.get(id=pk)
+
+    order = Order.objects.all()
+    orders = order.filter(id=pk)
+    form = OrderForm(request.POST, instance=order_instance)
+
+    if request.method == 'POST':
+            form = OrderForm(request.POST, instance=order_instance)
+            if form.is_valid():
+                form.save()
+                return redirect('admin_home')
+    shipping  = ShippingAddress.objects.all()
+   # shipping = shipping.get(order.id==orders.id)    
+
+    print('instance.....',order_instance)
+    context = {
+        'orders':orders,
+        'form':form,
+    
+    }
+    return render(request,'adminpages/order.html', context)
 
 # def customer_view(request):
 
 # customers = Customer.objects.all()
 
 # return render(request,'adminpages/customer_view.html',{'customers':customers})
+
 
 class admin_products(AdminRequiredMixin, TemplateView):
 
@@ -721,12 +811,33 @@ class ClubChartView(TemplateView):
 class AdminProductCreateView(AdminRequiredMixin, CreateView):
     template_name = "adminpages/product_create.html"
     form_class = CreateProduct
-    success_url = reverse_lazy("admin_home")
+    success_url = reverse_lazy("create")
 
     def form_valid(self, form):
         p = form.save()
         return super().form_valid(form)
         
+# class AdminProductCreateView(AdminRequiredMixin, View):
+#     def get(self, request, *args, **kwargs):
+#         product = Product.objects.all()
+#         form_one = ProductImageForm
+#         form = CreateProduct(request.POST)
+
+#         if request.method == 'POST':
+#             form = forms.CreateProduct(request.POST)
+#             form_one = ProductImageForm
+        
+#         if form.is_valid():
+#             form.save()
+#             form_one.save()
+#             return redirect('home')
+#         context = {
+#             'product':product,
+#             'form':form,
+#             'form_one':form_one
+#         }
+#         return render(request, "adminpages/product_create.html", context)
+    
 class AdminProductEdit(AdminRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         product = Product.objects.all()
@@ -734,9 +845,9 @@ class AdminProductEdit(AdminRequiredMixin, View):
 
         if request.method == 'POST':
             form = forms.UpdateProduct(request.POST, instance=product)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
+            if form.is_valid():
+                form.save()
+                return redirect('/')
         context = {
             'product':product,
             'form':form
@@ -854,7 +965,7 @@ def newsletter_signup(request):
         if form.is_valid():
             instance = form.save(commit = False)
             instance.save()
-            return redirect('list')
+            return redirect('home')
          
             
     else: 
@@ -862,3 +973,20 @@ def newsletter_signup(request):
     context['form']= form
 
     return render(request, "adminpages/newsletter_signup.html", context) 
+
+def about_us(request):
+    if request.method == "POST": 
+            form = NewsletterForm(request.POST)
+        
+            if form.is_valid():
+                instance = form.save(commit = False)
+                instance.save()
+                return redirect('about')
+            
+                
+    else: 
+        form = NewsletterForm()
+    context = {
+            'form':form
+        }
+    return render(request, 'store/aboutus.html', context)
