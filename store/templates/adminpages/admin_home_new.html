@@ -6,12 +6,28 @@
 <hr>
 
 <hr>
+
+<style>
+.parallax {
+  /* The image used */
+  background-image: url('/static/images/background1.jpg');
+
+  /* Set a specific height */
+  height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
 {% block info %} {% include 'adminpages/top_info.html'%}{% endblock info%}
 
  <a class="btn btn-outline-success" href="{% url 'store'%}">&#x2190; Back to Store</a> 
 <hr>
 
-<div class='row'>
+<div class='row parallax'>
 
 	<div class="col-md-5">
 		<h5>PAGE VIEW ANALYTICS: #</h5>
@@ -34,25 +50,24 @@
 			<table class="table table-sm">
 				<tr class = "bg-dark text-white">
 					<!--<th>Products</th>-->
-					<th> Customer No.</th>
-					<th> Name</th>
-					<th>Email</th>
-					<th> Date Joined</th>
+					<th>  No.</th>
+					<th> Product</th>
+					<th> Date Ordered</th>
+					<th> Customer </th>
 					<th>Update</th>
 					<th>Remove</th>
 				</tr>
-				{% for customer in newsletter %}
+				{% for order in pending_orders %}
 					<tr>
 					{% block order %}
 						<td>{{forloop.counter}}</td>
-						<td>{{customer.name}}</td>
-						<td>{{customer.email}}</td>
-						<td>{{customer.date}}</td>
-					   <!-- <td>{{order.order.customer}}</td>-->
+						<td>{{order.get_cart_item}}</td>
+						<td>{{order.date_ordered}}</td>
+					   <td>{{order.customer}}</td>
 
 					{% endblock order %}
-						<td><a class="btn btn-sm btn-warning" href="#">Update</a></td>
-						<td><a class="btn btn-sm btn-danger" href="#">Cancel</a></td>
+						<td><a class="btn btn-sm btn-warning" href="{% url 'update_order' order.id%}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id%}">Cancel</a></td>
 
 					</tr>
 

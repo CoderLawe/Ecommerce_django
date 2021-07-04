@@ -39,7 +39,7 @@
                         <td>{{order.customer}}</td>
 						<td>{{order.status}}</td>
 						<td><a class="btn btn-sm btn-warning" href="{% url 'update_order' order.pk %}">Update</a></td>
-						<td><a class="btn btn-sm btn-danger" href="#">Cancel</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.pk%}">Cancel</a></td>
 					</tr>
 				{% endfor %}
 			</table>

@@ -1364,7 +1364,17 @@ ol {
     padding: 20px;
 	border-radius: 10px;
 	margin-left: 10px;
+    transition: transform 450ms;
 	
+}
+.row__left{
+	transition: transform 450ms;
+
+}
+
+.row__left:hover{
+	transform: scale(1.08);
+
 }
 
 .map_image{

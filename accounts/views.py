@@ -16,7 +16,7 @@ def signup_view(request):
             instance.name = request.user
             instance.customer = request.user
             instance.save()
-            return redirect('store')
+            return redirect('home')
 
     else:
         form = UserCreationForm()

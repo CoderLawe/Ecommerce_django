@@ -13,9 +13,12 @@ from tinymce.models import HTMLField
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=50)
-    image = models.ImageField()
+    image = models.ImageField(blank=True ,null=True)
     mobile = models.CharField(max_length=20)
     bio = models.TextField(null=True,blank=True)
+
+    def __str__(self):
+        return self.full_name
 
 class Send_email(models.Model):
     email  = models.EmailField()
@@ -74,6 +77,7 @@ class Product(models.Model):
     detailed_description = models.TextField(null=True, blank="True")
     slug = models.SlugField(default=None)
     featured  = models.BooleanField(default=False)
+    created_by = models.ForeignKey(Admin,on_delete= models.CASCADE,related_name='product_posts',default='')
     num_available = models.IntegerField(default=1)
     #addedby = models.ForeignKey(User,on_delete= models.CASCADE,related_name='blog_posts',null = True)
 
@@ -88,6 +92,7 @@ class Product(models.Model):
      
         return url
 
+
     def get_rating(self):
         
         total = sum(int(review ['stars']) for review in self.reviews.values())
@@ -96,6 +101,11 @@ class Product(models.Model):
             return total / self.reviews.count()
         else:
             return 0
+
+
+    def short_description(self):
+        return self.description[:50] +'...'
+
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete = models.CASCADE)
@@ -212,8 +222,8 @@ class OrderItem(models.Model):
 
 #Maybe add customer field?
 
-    def __str__(self):
-        return self.product.name
+    # def __str__(self):
+    #     return self.quantity
 
     @property
     def get_total(self):

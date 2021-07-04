@@ -46,6 +46,9 @@ def home(request):
     json_serializer = serializers.get_serializer("json")()
     timer = json_serializer.serialize(Timer.objects.all(), ensure_ascii=False)
 
+    response = requests.get('https://fakestoreapi.com/products')
+    fake_product = response.json()
+    print('Fake product', fake_product)
    
 
     if request.method == "POST": 
@@ -68,7 +71,7 @@ def home(request):
         'items': items, 'order': order, 'cartItems': cartItems, 
         'products':products, 'articles':articles, 'timer':timer,
         'category':category,'properties':properties,'form':form,
-        'featured':featured
+        'featured':featured,'fake_product':fake_product,
     }
 
     return render(request, "store/boot_home.html", context)
@@ -98,6 +101,7 @@ def store(request):
     items = data['items']
     category = Category.objects.all()
 
+    
 
 
     products = Product.objects.all()
@@ -190,7 +194,6 @@ def updateGuest_item(request):
 #     email_details = Send_email.objects.all()
 #     sender_email = "sosahlawe@gmail.com"
 #     reciever_email = "mantsenii0@gmail.com"
-#     password = 'Explorer101DogsAreAwesome' #Try putting all these in a form
 #     message = "Transaction completed! By Lawe Sosah"
 
 #     server = smtplib.SMTP('smtp.gmail.com',587)
@@ -215,7 +218,6 @@ def process_order(request):
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        orderitem = OrderItem.objects.get_or_create(order=order)
     else:
         customer, order = guestOrder(request, data)
 
@@ -227,11 +229,11 @@ def process_order(request):
     if total == float(order.get_cart_total):
         order.complete = True
         # email_send() Remember to include this later
-        inventory()
-        for item in order.get_cart_quantity():
-            product = item.product
-            product.num_available = product.num_available - item.quantity
-            product.save()
+        # inventory()
+        # for item in order.get_cart_quantity():
+        #     product = item.product
+        #     product.num_available = product.num_available - item.quantity
+        #     product.save()
             
     order.save()
 
@@ -354,8 +356,8 @@ def update_product(request, pk):
 
     return render(request, 'adminpages/product_create.html', {'form': form})
 
-def update_order(request, pk):
-    order = Order.objects.get(id=pk)
+def update_order(request, key):
+    order = Order.objects.get(id=key)
     form = OrderForm(instance=order)
     shipping  = ShippingAddress.objects.get(customer=order.customer)
     qs = OrderItem.objects.filter(order=order)
@@ -502,15 +504,10 @@ class AdminHomeView(AdminRequiredMixin, TemplateView):
         newsletter = Newsletter.objects.all().order_by('date')
         articles = Article.objects.all()
 
-        response = requests.get('https://disease.sh/v3/covid-19/countries')
-        data = response.json()
-        print(data)
-        # country = data['country']
-        # print('country',country.data)
+
         orders = qs
         orderFilter = OrderHomeFilter(request.GET, queryset=orders) 
         orders = orderFilter.qs
-
 
 
 
@@ -532,9 +529,7 @@ class AdminHomeView(AdminRequiredMixin, TemplateView):
         context = {
             "all_orders": all_orders, 'total_orders': total_orders, 
             'delivered': delivered, "pending": pending,"pending_orders":pending_orders,
-            'qs':qs,'products':products,'filter':orderFilter,'orders':orders, 'items': items, 
-            'order': order, 'cartItems': cartItems,'newsletter':newsletter,'articles':articles,
-            'country':data
+            'qs':qs,'products':products,'filter':orderFilter,'orders':orders, 'items': items, 'order': order, 'cartItems': cartItems,'newsletter':newsletter,'articles':articles
 
             
         }

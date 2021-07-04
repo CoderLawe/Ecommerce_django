@@ -11,6 +11,9 @@ urlpatterns = [
 
 
 
+
+     path("shipping_details/<int:pk>/", views.shipping_details,
+         name="shipping_details"),
     path("admin-login/", AdminLoginView.as_view(), name="adminlogin"),
 
     path('admin-customer/', views.view_customer.as_view(), name="customer"),
@@ -70,7 +73,7 @@ urlpatterns = [
     path('update_product/<str:pk>/', views.update_product, name="update_product"),
 
 
-    path('update_order/<str:pk>/', views.update_order, name="update_order"),
+    path('update_order/<str:key>/', views.update_order, name="update_order"),
 
     path('customer_details/', views.customer_view_details, name="customer_details"),
 
@@ -96,9 +99,6 @@ urlpatterns = [
     path('chart/', views.ClubChartView.as_view(), name="chart"),
 
 
-
-     path("shipping_details/<int:pk>/", views.shipping_details,
-         name="shipping_details"),
 
     path("cust_details/<int:pk>/", views.detail_cust,
          name="cust_details"),
